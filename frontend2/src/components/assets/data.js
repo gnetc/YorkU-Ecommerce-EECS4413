@@ -1,0 +1,78 @@
+import placeholder from "./placeholder.jpg";
+
+const data_product = [
+  {
+    id: 1,
+    name: "Item 1",
+    image: placeholder,
+    price: 90,
+    Filter: "ByBrand",
+    description: "Description",
+    quantity: 5,
+  },
+  {
+    id: 2,
+    name: "Item 2",
+    image: placeholder,
+    price: 100,
+    Filter: "ByBrand",
+    description: "Placeholder",
+    quantity: 7,
+  },
+  {
+    id: 3,
+    name: "Item 3",
+    image: placeholder,
+    price: 10,
+    Filter: "ByCategory",
+    description: "I don't fucking know",
+    quantity: 0,
+  },
+  {
+    id: 4,
+    name: "Item 4",
+    image: placeholder,
+    price: 1000,
+    Filter: "ByCategory",
+    description: "God I don't wanna do this",
+    quantity: 30,
+  },
+  {
+    id: 5,
+    name: "Item 5",
+    image: placeholder,
+    price: 10000,
+    Filter: "ByGenre",
+    description: "What have I done to deserve this",
+    quantity: 100,
+  },
+  {
+    id: 6,
+    name: "Item 6",
+    image: placeholder,
+    price: 1500,
+    Filter: "ByGenre",
+    description: "Let me out",
+    quantity: 2,
+  },
+  {
+    id: 7,
+    name: "Item 7",
+    image: placeholder,
+    price: 1500,
+    Filter: "ByBrand",
+    description: "wejf;kleawjfawklfjaew",
+    quantity: 20,
+  },
+  {
+    id: 8,
+    name: "Item 8",
+    image: placeholder,
+    price: 1500,
+    Filter: "ByCategory",
+    description: ":D",
+    quantity: 30,
+  },
+];
+
+export default data_product;

@@ -1,0 +1,31 @@
+.allItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: 90vh;
+    overflow-x: hidden;
+}
+
+.allItem h1 {
+    color: black;
+    font-size: 50px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.allItem hr {
+    width: 200px;
+    height: 6px;
+    border-radius: 10px;
+    background: black;
+}
+
+.allProducts {
+    margin-top: 50px;
+    margin-left: 40px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}

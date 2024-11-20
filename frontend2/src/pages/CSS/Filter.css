@@ -1,0 +1,48 @@
+.ShopIndex {
+    display: flex;
+    margin: 0px 170px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ShopIndex p span {
+    font-weight: 600;
+}
+
+.ShopSort {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 20px;
+    border-radius: 40px;
+    border: 1px solid grey;
+    margin-top: 20px;
+}
+
+.ShopSort img {
+    height: 30px; 
+}
+
+.ShopSort:hover {
+    cursor: pointer;
+}
+
+.ShopProduct {
+    margin: 20px 170px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 80px;
+}
+
+.ShopSeeMore {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 150px auto;
+    width: 233px;
+    height: 69px;
+    border-radius: 75px;
+    background: lightgrey;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+}

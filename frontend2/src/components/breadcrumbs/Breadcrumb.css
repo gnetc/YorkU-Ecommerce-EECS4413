@@ -1,0 +1,15 @@
+.breadcrumb img {
+    width: 20px;
+    height: 10px;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: grey;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 60px 170px;
+    text-transform: capitalize;
+}
