@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "EcommerceApplication",
+            "request": "launch",
+            "mainClass": "com.yorku.ecommerce.EcommerceApplication",
+            "projectName": "demo"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-DemoApplication<demo>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

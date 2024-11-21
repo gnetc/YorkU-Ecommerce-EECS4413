@@ -1,1 +1,12 @@
-/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/example/demo/DemoApplication.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/EcommerceApplication.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/controller/AdminController.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/controller/AuthController.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/controller/CartController.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/controller/OrderController.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/controller/ProductController.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/model/Cart.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/model/Category.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/model/Customer.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/model/Order.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/model/Payment.java
+/Users/garnett/Documents/GitHub/YorkU-Ecommerce-EECS4413/src/main/java/com/yorku/ecommerce/model/Product.java
