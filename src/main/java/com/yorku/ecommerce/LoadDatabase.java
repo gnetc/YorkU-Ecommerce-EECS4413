@@ -15,9 +15,9 @@ public class LoadDatabase {
         return args -> {
             // Create a test user
             Customer testCust = new Customer(
-                "John",
-                "Doe",
-                "john.doe@example.com",
+                "Alex",
+                "Cultraro",
+                "john.doe1@example.com",
                 "hashed_password", // Replace with a real hashed password
                 "USER" // Default role
             );
