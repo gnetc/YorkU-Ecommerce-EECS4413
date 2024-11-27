@@ -21,8 +21,8 @@ public class CustomerController {
     public ResponseEntity<String> addCustomer(@RequestBody Customer customer){
         try{
             if(customerDAO.findByEmail(customer.getEmail())){
-                customerDAO.addCustomer(customer);
-                if (customer.getId()!= null) {
+
+                if (customerDAO.addCustomer(customer)) {
                     return ResponseEntity.status(HttpStatus.CREATED).body("Customer added successfully");
                 }
                 else{

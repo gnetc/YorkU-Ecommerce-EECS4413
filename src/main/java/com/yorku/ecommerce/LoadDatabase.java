@@ -1,18 +1,17 @@
 package com.yorku.ecommerce;
 
-import com.yorku.ecommerce.model.Customer;
-import com.yorku.ecommerce.respository.CustomerRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.yorku.ecommerce.DAO.CustomerDAO;
+import com.yorku.ecommerce.model.Customer;
 
 @Configuration
 public class LoadDatabase {
 
     @Bean
-    CommandLineRunner initDatabase(CustomerRepo customerRepo) {
+    CommandLineRunner initDatabase(CustomerDAO customerDAO) {
         return args -> {
             // Create a test user
             Customer testCust = new Customer(
@@ -24,7 +23,7 @@ public class LoadDatabase {
             );
 
             // Save the user to the database
-            customerRepo.save(testCust);
+            customerDAO.addCustomer(testCust);
 
             System.out.println("Test user saved: " + testCust);
         };

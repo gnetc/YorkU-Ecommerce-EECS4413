@@ -16,11 +16,11 @@ public class CustomerDAOImpl implements CustomerDAO{
 
     @Transactional
     @Override
-    public void addCustomer(Customer customer){
+    public Boolean addCustomer(Customer customer){
 
         entityManager.persist(customer);  //stores the customer to wait to be sent to database
         entityManager.flush();      //sends to database
-
+        return entityManager.contains(customer); 
     }
 
     @Override
