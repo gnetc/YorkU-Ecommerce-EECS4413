@@ -1,10 +1,11 @@
-import com.yorku.ecommerce.model.Product;
+package com.yorku.ecommerce.DAO;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.yorku.ecommerce.model.Product;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -59,6 +60,10 @@ public class ProductDAOImpl implements ProductDAO {
         return entityManager.createQuery("SELECT p FROM Products p WHERE p.name LIKE :keyword OR p.description LIKE :keyword", Product.class)
                             .setParameter("keyword", "%" + keyword + "%")
                             .getResultList();
-        }
+    }
+
+    
+
+
 
 }
