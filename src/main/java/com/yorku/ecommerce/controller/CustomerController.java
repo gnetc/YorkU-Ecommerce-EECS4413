@@ -20,7 +20,7 @@ public class CustomerController {
     @PostMapping("/signup")
     public ResponseEntity<String> addCustomer(@RequestBody Customer customer){
         try{
-            if(customerDAO.findByEmail(customer.getEmail())){
+            if(customerDAO.findByEmail(customer.getEmail())){   
 
                 if (customerDAO.addCustomer(customer)) {
                     return ResponseEntity.status(HttpStatus.CREATED).body("Customer added successfully");

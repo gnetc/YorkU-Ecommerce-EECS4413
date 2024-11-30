@@ -14,10 +14,10 @@ public class LoadDatabase {
     CommandLineRunner initDatabase(CustomerDAO customerDAO) {
         return args -> {
             // Create a test user
-            Customer testCust = new Customer(
-                "Alex",
+                Customer testCust = new Customer(
+                "Naru",
                 "Cultraro",
-                "john.doe1@example.com",
+                "john.doe4@example.com",
                 "hashed_password", // Replace with a real hashed password
                 "USER" // Default role
             );
