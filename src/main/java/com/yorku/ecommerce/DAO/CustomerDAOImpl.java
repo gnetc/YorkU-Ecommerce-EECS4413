@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.yorku.ecommerce.model.Customer;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -21,7 +20,7 @@ public class CustomerDAOImpl implements CustomerDAO{
     @Transactional
     @Override
     public Boolean addCustomer(Customer customer){
-
+        System.out.println(customer.getFirstName());
         entityManager.persist(customer);  //stores the customer to wait to be sent to database
         entityManager.flush();      //sends to database
         return entityManager.contains(customer); 
@@ -29,13 +28,25 @@ public class CustomerDAOImpl implements CustomerDAO{
 
     @Transactional
     @Override
-    public Boolean findByEmail(String email){
-        Query query = entityManager.createQuery("SELECT * FROM customer WHERE \" " + email + " \" = email;", Customer.class);
-        List<Customer> c = query.getResultList();
-        return !c.isEmpty();
-        
-        
+    public Customer findByEmail(String email){
+        String query = "SELECT c FROM Customer c WHERE c.email = :email";
+        List<Customer> customer = entityManager.createQuery(query, Customer.class).setParameter("email", email).getResultList();
+        if(customer.isEmpty()){
+            return null;
+        }
+        return customer.get(0);
     }
-  
+
+    @Transactional
+    @Override
+    public Customer findByID(int id){
+        String query = "SELECT c FROM Customer c WHERE c.id = :id";
+        List<Customer> customer =  entityManager.createQuery(query, Customer.class).setParameter("id", id).getResultList();
+        if(customer.isEmpty()){
+            return null;
+        }
+        System.out.println(customer.get(0).getFirstName());
+        return customer.get(0);
+    }
 
 }

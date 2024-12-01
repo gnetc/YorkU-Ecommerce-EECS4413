@@ -6,7 +6,9 @@ public interface CustomerDAO{
 
     public Boolean addCustomer(Customer customer);
 
-    public Boolean findByEmail(String email);
+    public Customer findByEmail(String email);
+
+    public Customer findByID(int id);
 
     
 
