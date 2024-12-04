@@ -3,8 +3,10 @@ package com.yorku.ecommerce.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,6 +53,48 @@ public class CustomerController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
             }
         }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> updateCustomer(@RequestBody Customer customer){
+        try{
+            Customer newCustomerEmail = customerDAO.findByEmail(customer.getEmail());
+            if(newCustomerEmail == null){ // if the new input email doesnt exist in the database
+                if(customerDAO.updateCustomer(customer)){
+                    return ResponseEntity.ok("Customer updated successfully.");
+                }
+                else{
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update the customer.");
+                }
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Customer Email Already Exist");
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> removeCustomer(@RequestBody Customer customer){
+        try {
+            Customer c = customerDAO.findByID(customer.getId());
+            if(c != null){
+                if(customerDAO.deleteCustomer(customer.getId())){
+                    return ResponseEntity.ok("Customer Deleted Successfully.");
+                }
+                else{
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Customer Was Not Deleted");
+                }
+            }
+            else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Customer Does Not Exist");
+            }
+        } 
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
         }
