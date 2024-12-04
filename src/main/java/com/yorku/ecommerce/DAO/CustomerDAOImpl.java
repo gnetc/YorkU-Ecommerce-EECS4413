@@ -24,6 +24,7 @@ public class CustomerDAOImpl implements CustomerDAO{
         entityManager.persist(customer);  //stores the customer to wait to be sent to database
         entityManager.flush();      //sends to database
         return entityManager.contains(customer); 
+  
     }
 
     @Transactional
@@ -48,7 +49,7 @@ public class CustomerDAOImpl implements CustomerDAO{
         System.out.println(customer.get(0).getFirstName());
         return customer.get(0);
     }
-    
+
     @Transactional
     @Override
     public Boolean updateCustomer(Customer newCustomerInfo){ 

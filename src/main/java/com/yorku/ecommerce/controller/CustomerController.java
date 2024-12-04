@@ -56,3 +56,23 @@ public class CustomerController {
         }
     }
 }
+    @PutMapping("/update")
+    public ResponseEntity<String> updateCustomer(@RequestBody Customer customer){
+        try{
+            Customer newCustomerEmail = customerDAO.findByEmail(customer.getEmail());
+            if(newCustomerEmail == null){ // if the new input email doesnt exist in the database
+                if(customerDAO.updateCustomer(customer)){
+                    return ResponseEntity.ok("Customer updated successfully.");
+                }
+                else{
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update the customer.");
+                }
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Customer Email Already Exist");
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
+        }
+    }
