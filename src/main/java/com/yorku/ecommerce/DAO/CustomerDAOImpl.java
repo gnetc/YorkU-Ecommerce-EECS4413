@@ -71,5 +71,16 @@ public class CustomerDAOImpl implements CustomerDAO{
         
     }
 
+    @Transactional
+    @Override
+    public Boolean deleteCustomer(int id){
+        String query = "SELECT c FROM Customer c WHERE c.id = :id"; 
+        Customer customer = entityManager.createQuery(query, Customer.class).setParameter("id", id).getSingleResult();
+        entityManager.remove(customer);
+        if(!entityManager.contains(customer)){
+            return true;
+        }
+        return false;
+    }
 
 }

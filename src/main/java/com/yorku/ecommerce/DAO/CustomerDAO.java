@@ -12,5 +12,6 @@ public interface CustomerDAO{
 
     public Boolean updateCustomer(Customer newCustomerInfo);
     
+    public Boolean deleteCustomer(int id);
 
 }
