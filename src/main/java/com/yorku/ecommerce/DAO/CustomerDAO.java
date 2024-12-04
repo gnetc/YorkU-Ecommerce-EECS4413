@@ -10,6 +10,7 @@ public interface CustomerDAO{
 
     public Customer findByID(int id);
 
+    public Boolean updateCustomer(Customer newCustomerInfo);
     
 
 }
