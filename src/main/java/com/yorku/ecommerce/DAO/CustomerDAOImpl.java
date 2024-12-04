@@ -30,9 +30,9 @@ public class CustomerDAOImpl implements CustomerDAO{
     @Transactional
     @Override
     public Customer findByEmail(String email){
-        String query = "SELECT c FROM Customer c WHERE c.email = :email";
-        List<Customer> customer = entityManager.createQuery(query, Customer.class).setParameter("email", email).getResultList();
-        if(customer.isEmpty()){
+        String query = "SELECT c FROM Customer c WHERE c.email = :email";  //query the database for the email inputted 
+        List<Customer> customer = entityManager.createQuery(query, Customer.class).setParameter("email", email).getResultList(); //add the customer from the email query to a lsit 
+        if(customer.isEmpty()){ 
             return null;
         }
         return customer.get(0);
@@ -41,13 +41,34 @@ public class CustomerDAOImpl implements CustomerDAO{
     @Transactional
     @Override
     public Customer findByID(int id){
-        String query = "SELECT c FROM Customer c WHERE c.id = :id";
-        List<Customer> customer =  entityManager.createQuery(query, Customer.class).setParameter("id", id).getResultList();
+        String query = "SELECT c FROM Customer c WHERE c.id = :id"; //query the database for the id inputted 
+        List<Customer> customer =  entityManager.createQuery(query, Customer.class).setParameter("id", id).getResultList(); //add the customer from the id query to a lsit
         if(customer.isEmpty()){
             return null;
         }
         System.out.println(customer.get(0).getFirstName());
         return customer.get(0);
+    }
+    
+    @Transactional
+    @Override
+    public Boolean updateCustomer(Customer newCustomerInfo){ 
+
+        int id = newCustomerInfo.getId();
+        String query = "SELECT c FROM Customer c WHERE c.id = :id"; 
+        Customer existingCustomer = entityManager.createQuery(query, Customer.class).setParameter("id", id).getSingleResult(); //return the existing customer with the id 
+    
+        existingCustomer.setFirstName(newCustomerInfo.getFirstName());
+        existingCustomer.setLastName(newCustomerInfo.getLastName());
+        existingCustomer.setEmail(newCustomerInfo.getEmail());
+        existingCustomer.setPasswordHash(newCustomerInfo.getPasswordHash());
+        existingCustomer.setRole(newCustomerInfo.getRole());
+
+        if(entityManager.merge(existingCustomer) != null){ // 
+            return true;
+        }
+        return false;
+        
     }
 
     @Transactional
