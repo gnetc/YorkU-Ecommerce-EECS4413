@@ -73,27 +73,6 @@ public class CustomerDAOImpl implements CustomerDAO{
 
     @Transactional
     @Override
-    public Boolean updateCustomer(Customer newCustomerInfo){ 
-
-        int id = newCustomerInfo.getId();
-        String query = "SELECT c FROM Customer c WHERE c.id = :id"; 
-        Customer existingCustomer = entityManager.createQuery(query, Customer.class).setParameter("id", id).getSingleResult(); //return the existing customer with the id 
-    
-        existingCustomer.setFirstName(newCustomerInfo.getFirstName());
-        existingCustomer.setLastName(newCustomerInfo.getLastName());
-        existingCustomer.setEmail(newCustomerInfo.getEmail());
-        existingCustomer.setPasswordHash(newCustomerInfo.getPasswordHash());
-        existingCustomer.setRole(newCustomerInfo.getRole());
-
-        if(entityManager.merge(existingCustomer) != null){ // 
-            return true;
-        }
-        return false;
-        
-    }
-
-    @Transactional
-    @Override
     public Boolean deleteCustomer(int id){
         String query = "SELECT c FROM Customer c WHERE c.id = :id"; 
         Customer customer = entityManager.createQuery(query, Customer.class).setParameter("id", id).getSingleResult();
