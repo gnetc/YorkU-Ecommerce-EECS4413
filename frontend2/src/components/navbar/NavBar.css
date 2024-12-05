@@ -86,3 +86,8 @@
     background-color: red;
     color: white;
 }
+
+.profileIcon {
+    width: 50px;
+    cursor: pointer;
+}
