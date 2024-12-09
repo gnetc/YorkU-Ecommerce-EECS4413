@@ -11,7 +11,7 @@ public class Category {
     private Integer id;
 
     private String name;
-    private String desc;
+    private String description;
 
     @OneToMany(mappedBy = "category")
     private List<Product> products;
@@ -25,11 +25,11 @@ public class Category {
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDesc(String description) {
+        this.description = description;
     }
 
 }

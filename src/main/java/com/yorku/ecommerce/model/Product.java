@@ -16,6 +16,24 @@ import jakarta.persistence.Entity;
 @Entity
 @Table(name = "Products")
 public class Product {
+
+    public Product() {
+
+    };
+
+    public Product(Integer id, String name, String desc, double price, 
+                    int stock, String image_url, Category category, 
+                    LocalDateTime createdAt, LocalDateTime updatedAt) {
+                        this.id = id;
+                        this.name = name;
+                        this.desc = desc;
+                        this.price = price;
+                        this.stock = stock;
+                        this.image_url = image_url;
+                        this.category = category;
+                        this.createdAt = createdAt;
+                        this.updatedAt = updatedAt;
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
