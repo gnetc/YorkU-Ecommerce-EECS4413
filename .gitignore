@@ -1,1 +1,16 @@
 .DS_Store
+target/classes/com/yorku/ecommerce/controller/CustomerController.class
+target/classes/com/yorku/ecommerce/controller/ProductController.class
+target/classes/com/yorku/ecommerce/DAO/CustomerDAO.class
+target/classes/com/yorku/ecommerce/DAO/CustomerDAOImpl.class
+target/classes/com/yorku/ecommerce/LoadDatabase.class
+target/classes/com/yorku/ecommerce/model/Product.class
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+*.class
+*.class
+frontend2/node_modules/.cache/default-development/0.pack
+frontend2/node_modules/.cache/default-development/1.pack
+frontend2/node_modules/.cache/default-development/2.pack
+frontend2/node_modules/.cache/default-development/index.pack
+frontend2/node_modules/.cache/default-development/index.pack.old
