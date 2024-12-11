@@ -83,4 +83,12 @@ public class CustomerDAOImpl implements CustomerDAO{
         return false;
     }
 
+    @Transactional
+    @Override
+    public Boolean checkRole(int id){
+        String query = "SELECT c FROM Customer c WHERE c.id = :id";
+        Customer customer = entityManager.createQuery(query, Customer.class).setParameter("id", id).getSingleResult();
+        if(customer.getRole().equals("Admin"))}
+        
+    }
 }

@@ -14,4 +14,6 @@ public interface CustomerDAO{
     
     public Boolean deleteCustomer(int id);
 
+    public Boolean checkRole(int id);
+
 }
