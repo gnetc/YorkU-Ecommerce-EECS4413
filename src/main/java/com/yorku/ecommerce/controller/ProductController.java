@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,30 +31,31 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts(
-            @RequestParam(required = false) Integer categoryId,
-            @RequestParam(required = false) Integer brandId,
-            @RequestParam(required = false) String search,
-            @RequestParam(required = false) String sort) {
+    @RequestParam(required = false) Integer categoryId,
+    @RequestParam(required = false) Integer brandId,
+    @RequestParam(required = false) String search,
+    @RequestParam(required = false) String sort) {
    
-            List<Product> products = productService.getAllProducts(categoryId, brandId, search, sort);
-            return ResponseEntity.ok(products);
-    }
+        List<Product> products = productService.getAllProducts(categoryId, brandId, search, sort);
+        return ResponseEntity.ok(products);    }
 
     @PostMapping
-    public void createProduct(@RequestBody Product product) {
-        productDAO.save(product);
-    }
-   
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        Product savedProduct = productService.save(product);
+        return ResponseEntity.ok(savedProduct);
+        }    
+
     @GetMapping("/{id}")
    public ResponseEntity<Product> getProductById(@PathVariable Integer id) {
-        Product product = productDAO.findById(id);
+    Product product = productDAO.findById(id);
 
-        if (product != null) {
-            return ResponseEntity.ok(product);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    if (product != null) {
+        return ResponseEntity.ok(product);
+    } else {
+        return ResponseEntity.notFound().build();
     }
+
+   }
 
     
  }

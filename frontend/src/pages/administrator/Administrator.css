@@ -1,0 +1,60 @@
+.mainpage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.square {
+    border: 1px solid black;
+    width: 800px;
+    height: 600px;
+    position: relative; 
+    background-color: white; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    /* margin-top: 50px; */
+}
+
+.salesHistory,
+.customerAccount,
+.inventory {
+    border: 1px solid black;
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    top: 125px;
+    background-color: white;
+    text-align: center;
+    line-height: 50px; 
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+}
+
+.salesHistory {
+    left: 350px;
+}
+
+.customerAccount {
+    left: 520px;
+}
+
+.inventory {
+    left: 690px;
+}
+
+.salesHistory.active,
+.customerAccount.active,
+.inventory.active {
+    background-color: #f0f0f0;
+    transform: scale(1.1); 
+}
+
+.salesHistoryContent,
+.customerAccountContent,
+.inventoryContent {
+    font-size: 20px;
+    margin: 15px;
+    line-height: 2.0;
+}

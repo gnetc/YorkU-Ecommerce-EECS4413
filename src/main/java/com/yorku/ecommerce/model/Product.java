@@ -1,6 +1,8 @@
 package com.yorku.ecommerce.model;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,15 +23,15 @@ public class Product {
 
     };
 
-    public Product(Integer id, String name, String desc, double price, 
-                    int stock, String image_url, Category category, 
+    public Product(Integer id, String name, String description, double price, 
+                    int stock, String imageUrl, Category category, 
                     LocalDateTime createdAt, LocalDateTime updatedAt) {
                         this.id = id;
                         this.name = name;
-                        this.desc = desc;
+                        this.description = description;
                         this.price = price;
                         this.stock = stock;
-                        this.image_url = image_url;
+                        this.imageUrl = imageUrl;
                         this.category = category;
                         this.createdAt = createdAt;
                         this.updatedAt = updatedAt;
@@ -44,7 +46,7 @@ public class Product {
     private String name;
 
     @Column (name = "description", nullable = false)
-    private String desc;
+    private String description;
 
     @Column (name = "price", nullable = false)
     private double price;
@@ -52,8 +54,9 @@ public class Product {
     @Column (name = "stock", nullable = false)
     private int stock;
 
-    @Column (name = "image_url", nullable = false)
-    private String image_url;
+    @Column (name = "image_url", nullable = true, length = 500)
+    @JsonProperty("image_url")
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -89,12 +92,12 @@ public class Product {
         this.stock = stock;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPrice() {
@@ -115,11 +118,11 @@ public class Product {
     }
 
     public String getImageUrl() {
-        return image_url;
+        return imageUrl;
     }
 
-    public void setImageUrl(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
    public LocalDateTime getCreatedAt() {
