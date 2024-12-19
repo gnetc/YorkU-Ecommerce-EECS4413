@@ -10,7 +10,6 @@ public interface ProductDAO {
     List<Product> findAll(Integer categoryId, Integer brandId, String search, String sort);
     void deleteById(Integer id);
 
-
     List<Product> findByCategoryId(int categoryId);
     List<Product> searchByName_Desc(String keyword);
 }

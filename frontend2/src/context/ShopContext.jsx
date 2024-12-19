@@ -45,11 +45,7 @@ const ShopContextProvider = (props) => {
         return totalItems;
     }
 
-    const removeAll = () => {
-        setCartItems(getDefaultCart()); // Reset cart items to default empty state
-    }
-
-    const contextValue =  {getTotalItems, getTotal, productData, cartItems, addToCart, removeFromCart, removeAll};
+    const contextValue =  {getTotalItems, getTotal, productData, cartItems, addToCart, removeFromCart};
 
     return (
         <ShopContext.Provider value={contextValue}>

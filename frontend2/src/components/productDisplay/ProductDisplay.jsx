@@ -18,7 +18,7 @@ function ProductDisplay (props) {
                     ${product.price}
                 </div>
                 <div className='displayBrand'>
-                    Brand:&nbsp;<span>{product.Filter}</span>
+                    Brand:&nbsp;<span>{product.Filter}</span> {/*supposed to show brand*/}
                 </div>
                 <div className='displayQuantity'>
                     Quanity left:&nbsp;<span>{product.quantity}</span>
