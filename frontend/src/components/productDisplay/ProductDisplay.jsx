@@ -2,6 +2,11 @@ import React, { useContext } from 'react';
 import "./ProductDisplay.css"
 import { ShopContext } from '../../context/ShopContext';
 
+/**
+ * this page is for displaying the product the user clicked on - shows detail of the product
+ * @param {*} props 
+ * @returns product info page
+ */
 function ProductDisplay (props) {
     const {product} = props;
     const {addToCart} = useContext(ShopContext);
@@ -18,7 +23,7 @@ function ProductDisplay (props) {
                     ${product.price}
                 </div>
                 <div className='displayBrand'>
-                    Brand:&nbsp;<span>{product.Filter}</span> {/*supposed to show brand*/}
+                    Brand:&nbsp;<span>{product.Filter}</span>
                 </div>
                 <div className='displayQuantity'>
                     Quanity left:&nbsp;<span>{product.quantity}</span>

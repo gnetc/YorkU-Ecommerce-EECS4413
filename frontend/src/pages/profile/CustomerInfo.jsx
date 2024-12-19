@@ -3,6 +3,7 @@ import './CustomerInfo.css'
 
 /**
  * Customer information page
+ * @returns 
  * @returns customer information
  */
 const CustomerInfo = () => {

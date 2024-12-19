@@ -15,6 +15,7 @@ function CartItems () {
                 <p>Remove</p>
             </div>
             <hr/> 
+            {/* Displays items users have in cart */}
             {productData.map((e) => {
                 if (cartItems[e.id] > 0) {
                     return <div>
@@ -42,12 +43,12 @@ function CartItems () {
                         <hr/>
                         <div className='totalItem'>
                             <p>Shipping Fee</p>
-                            <p>$1000000000000</p>
+                            <p>$100</p>
                         </div>
                         <hr/>
                         <div className='totalItem'>
                             <h3>Total</h3>
-                            <h3>${getTotal() * 1000000000000}</h3>
+                            <h3>${getTotal() * 100}</h3>
                         </div>
                     </div>
                     <button>Check Out</button>
