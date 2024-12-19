@@ -5,11 +5,12 @@ import "./CSS/Checkout.css"
 
 /**
  * Checkout page
- * @returns 
+ * @returns check out information
  */
 function Checkout () {
-    const {getTotal, productData, cartItems, removeAll } = useContext(ShopContext);
+    const {getTotal, productData, cartItems, removeAll } = useContext(ShopContext); // Retrieve necessary functions and info from shopcontext page
     const navigate = useNavigate();
+    const [cardNumber, setCardNumber] = useState(""); // get card number
     const [error, setError] = useState("");
 
     const validCardNumber = "1234 5678 9012 3456"; // Example valid card
@@ -17,19 +18,13 @@ function Checkout () {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const cardNumber = e.target.elements["cardNumber"].value.trim();
-
-        if (cardNumber === validCardNumber) {
+        if (cardNumber.trim() === validCardNumber) {
+            console.log("Payment Success");
             removeAll(); // Clear cart
-            navigate("/OrderSummary", {
-                state: { productData, cartItems },
-            });
+            navigate("/OrderSummary");
         } else {
-            setError("Credit Card Authorization Failed. Please try again.");
+            setError("Credit Card Authorization Failed.");
         }
-
-
-        alert("Order placed successfully!");
     };
     return (
         <div className="checkoutPage">
@@ -42,9 +37,15 @@ function Checkout () {
                 <input type="text" placeholder="Postal Code" required />
                 <hr /><br/>
                 <h2>Payment Information</h2>
-                <input type="text" placeholder="Credit Card Number" required />
+                <input 
+                type="text" 
+                value={cardNumber} 
+                onChange={(e) => setCardNumber(e.target.value)}
+                placeholder="Credit Card Number" 
+                required />
                 <input type="text" placeholder="Expiration Date (MM/YY)" required />
                 <input type="password" placeholder="CVV" required />
+                <p className="error">{error}</p> {/* Display error */}
             </form>
             {productData.map((e) => {
                 if (cartItems[e.id] > 0) {
@@ -60,7 +61,7 @@ function Checkout () {
             })}
             <p className='submission'>Shipping fee: $100</p>
             <p className='submission'>Total: ${getTotal() * 100}</p>
-            <button type="submit" className='submission'>Place Order</button>
+            <button type="submit" className='submission' onClick={handleSubmit}>Place Order</button>
         </div>
     )
 }

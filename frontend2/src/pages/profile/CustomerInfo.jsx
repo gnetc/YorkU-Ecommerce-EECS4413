@@ -3,19 +3,21 @@ import './CustomerInfo.css'
 
 /**
  * Customer information page
- * @returns 
+ * @returns customer information
  */
 const CustomerInfo = () => {
     const [activeTab, setActiveTab] = useState("Profile"); 
     return (
         <div className='mainpage'> 
-            <div className={`profile ${activeTab === "Profile" ? "active" : ""}`}
+            {/* Determine active tab */}
+            <div className={`profile ${activeTab === "Profile" ? "active" : ""}`} 
                 onClick={() => setActiveTab("Profile")}>Profile</div>
             <div className={`purchaseHistory ${activeTab === "purchaseHistory" ? "active" : ""}`}
                 onClick={() => setActiveTab("purchaseHistory")}>Purchase History</div>
             <div className='square'>
                 {activeTab === "Profile" ? (
                         <div className="profileContent">
+                            {/* Example profile */}
                             <p>Name: <b>Your name</b> <button>Edit</button></p> 
                             <p>Email: <b>testemail@gmail.com</b> <button>Edit</button></p>
                             <p>Credit Card: <b>**** **** **** 1234</b> <button>Edit</button></p>
@@ -30,6 +32,7 @@ const CustomerInfo = () => {
                                 <p>Quantity</p>
                             </div>
                             <hr/>
+                            {/* Example purchase history */}
                             <div className='itemList'>
                                 <p>Item 1</p>
                                 <p>November 20, 2024</p>

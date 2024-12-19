@@ -3,6 +3,10 @@ import "./CartItems.css"
 import { ShopContext } from '../../context/ShopContext';
 import { useNavigate } from "react-router-dom";
 
+/**
+ * This page is for the cart page.
+ * @returns 
+ */
 function CartItems () {
     const {getTotal, productData, cartItems, removeFromCart} = useContext(ShopContext);
     const navigate = useNavigate();
@@ -22,6 +26,7 @@ function CartItems () {
                 <p>Remove</p>
             </div>
             <hr/> 
+            {/* Displays items users have in cart */}
             {productData.map((e) => {
                 if (cartItems[e.id] > 0) {
                     return <div>
@@ -49,7 +54,7 @@ function CartItems () {
                         <hr/>
                         <div className='totalItem'>
                             <p>Shipping Fee</p>
-                            <p>$1000000000000</p>
+                            <p>$100</p>
                         </div>
                         <hr/>
                         <div className='totalItem'>

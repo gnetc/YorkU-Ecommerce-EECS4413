@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import "./CSS/Filter.css";
 import Item from "../components/item/Item";
+import Sort from "../components/sort/Sort";
 
 /**
  * Filter products by brand, category, or genre
@@ -39,6 +40,8 @@ const Filter = ({ filterKey }) => {
             ? "Genres"
             : "Unknown"}
         </h1>
+        
+        {filterKey === "all" && <Sort />}
 
       {Object.keys(groupedProducts).map((group) => (
         <div key={group} className="GroupSection">

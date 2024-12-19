@@ -2,6 +2,11 @@ import React, { useContext } from 'react';
 import "./ProductDisplay.css"
 import { ShopContext } from '../../context/ShopContext';
 
+/**
+ * this page is for displaying the product the user clicked on - shows detail of the product
+ * @param {*} props 
+ * @returns product info page
+ */
 function ProductDisplay (props) {
     const {product} = props;
     const {addToCart} = useContext(ShopContext);

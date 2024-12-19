@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
-import { ShopContext } from '../context/ShopContext';
+import React from 'react';
 import "./CSS/Checkout.css"
 
 /**
- * 
- * @returns 
+ * Order Summary (after purchase) page
+ * @returns order summary
  */
 function OrderSummary () {
     return (
         <div>
-
+            <h1>Order Summary</h1>
         </div>
     )
 }

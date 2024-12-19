@@ -1,8 +1,9 @@
 import React from 'react'
 
-/*
-* Purhcase history page for users
-*/
+/**
+ * Purchase history page for users
+ * @returns purchase history
+ */
 const PurchaseHistory = () => {
     return (
         <div> 

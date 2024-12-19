@@ -1,18 +1,16 @@
 import React from "react";
 import "./Sort.css";
 
-function Sort({ onSortChange, selectedSort }) {
+/**
+ * This class is the sorting button interface? thing idk 
+ */
+function Sort() {
   return (
     <div className="sortContainer">
       <label htmlFor="sort" className="sortLabel">
         Sort by:
       </label>
-      <select
-        id="sort"
-        className="sortSelect"
-        value={selectedSort}
-        onChange={(e) => onSortChange(e.target.value)}
-      >
+      <select id="sort" className="sortSelect">
         <option value="default">Default</option>
         <option value="priceAsc">Price-low to high</option>
         <option value="priceDesc">Price-high to low</option>

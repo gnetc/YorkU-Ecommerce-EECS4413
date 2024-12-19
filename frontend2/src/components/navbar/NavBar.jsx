@@ -8,13 +8,16 @@ import profile from "../assets/profile.png"
 import { ShopContext } from '../../context/ShopContext';
 import { LoginContext } from "../../context/LoginState";
 
+/**
+ * This page is for the navigation page
+ * @returns 
+ */
 const NavBar = () => {
 
     // const[menu, setMenu] = useState("shop");
     const { getTotalItems } = useContext(ShopContext);
     const { isLoggedIn } = useContext(LoginContext); 
     const [menu, setMenu] = useState("All");
-    const navigate = useNavigate();
 
     return (
         <div className='navBar'> 

@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import "./Administrator.css"
 
+/**
+ * Administrator profile page
+ * @returns administrator page
+ */
 function Administrator () {
     const [activeTab, setActiveTab] = useState("salesHistory");
     return (
         <div className='mainpage'>
+            {/* Determine active tab */}
             <div className={`salesHistory ${activeTab === "salesHistory" ? "active" : ""}`}
                 onClick={() => setActiveTab("salesHistory")}>Sales History</div>
             <div className={`customerAccount ${activeTab === "customerAccount" ? "active" : ""}`}
