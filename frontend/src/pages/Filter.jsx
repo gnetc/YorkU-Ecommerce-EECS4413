@@ -65,3 +65,5 @@ const Filter = ({ filterKey }) => {
     </div>
   );
 };
+
+export default Filter;
