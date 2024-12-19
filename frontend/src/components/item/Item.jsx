@@ -9,16 +9,18 @@ import './Item.css'
  * @param {*} props 
  * @returns 
  */
-function Item (props) {
+
+
+function Item({ id, name, image, price }) {
     return (
         <div className='item'>
-            <Link to={`/product/${props.id}`}><img src={props.image} alt=''/> </Link>
-            <p>{props.name}</p>
-            <div className='itemPrices'>
-                ${props.price}
-            </div>
+            <Link to={`/product/${id}`}>
+                <img src={image || '/path-to-placeholder-image.jpg'} alt={name || 'Product'} />
+                <p>{name}</p>
+                <div className='itemPrices'>${price}</div>
+            </Link>
         </div>
-    )
+    );
 }
 
-export default Item
+export default Item;

@@ -9,7 +9,7 @@ import Administrator from './pages/Administrator.jsx';
 
 import NavBar from './components/navbar/NavBar.jsx';
 import Filter from './pages/Filter.jsx';
-import Product from './pages/Product.jsx';
+import ProductDisplay from './components/productDisplay/ProductDisplay.jsx'; // Import the ProductDisplay component
 import All from "./pages/All.jsx" 
 
 function App() {
@@ -24,9 +24,7 @@ function App() {
           <Route path='/ByBrand' element={<Filter Filter="ByBrand"/>}></Route>
           <Route path='/ByCategory' element={<Filter Filter="ByCategory"/>}></Route>
           <Route path='/ByGenre' element={<Filter Filter="ByGenre"/>}></Route>
-          <Route path='/Product' element={<Product/>}>
-            <Route path=':ProductId' element={<Product/>}></Route>
-          </Route>
+          <Route path="/Product/:productId" element={<ProductDisplay />} /> {/* Updated to use :productId */}
           <Route path='/ShoppingCart' element={<ShoppingCart/>}></Route>
           <Route path='/Registration' element={<Registration/>}></Route>
         </Routes>
