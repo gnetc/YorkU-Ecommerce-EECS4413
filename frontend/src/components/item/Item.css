@@ -1,0 +1,29 @@
+.item {
+    width: 350px;
+}
+
+.item p {
+    margin: 6px 0px;
+}
+
+.itemPrices {
+    display: flex;
+    gap: 20px;
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.item:hover {
+    color: grey;
+    font-weight: 500;
+}
+
+.item img {
+    width: 300px;
+    object-fit: cover;
+}
+
+.item img:hover {
+    transform: scale(1.05);
+}
