@@ -40,17 +40,11 @@ public class ProductController {
         return ResponseEntity.ok(products);    }
 
     @PostMapping
-    public void createProduct(@RequestBody Product product) {
-        productDAO.save(product);
-    }
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        Product savedProduct = productService.save(product);
+        return ResponseEntity.ok(savedProduct);
+        }    
 
-    @GetMapping("/products")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
-
-    
-   
     @GetMapping("/{id}")
    public ResponseEntity<Product> getProductById(@PathVariable Integer id) {
     Product product = productDAO.findById(id);

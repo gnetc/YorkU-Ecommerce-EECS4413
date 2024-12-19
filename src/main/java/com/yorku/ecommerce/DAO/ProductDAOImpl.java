@@ -19,14 +19,14 @@ public class ProductDAOImpl implements ProductDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional
     @Override
-    public void save(Product product) {
+    public Product save(Product product) {
         if (product.getId() == null) {
             entityManager.persist(product);
         } else {
-            entityManager.flush();
+            entityManager.merge(product); // update existing product
         }
+        return product;
     }
 
     @Override
