@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yorku.ecommerce.DAO.ProductDAO;
 import com.yorku.ecommerce.model.Product;
-
+import com.yorku.ecommerce.service.ProductService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,15 +26,18 @@ public class ProductController {
     @Autowired
     private ProductDAO productDAO;
 
+    @Autowired
+    private ProductService productService;
+
     @GetMapping
-    public List<Product> getAllProducts(
+    public ResponseEntity<List<Product>> getAllProducts(
     @RequestParam(required = false) Integer categoryId,
     @RequestParam(required = false) Integer brandId,
     @RequestParam(required = false) String search,
     @RequestParam(required = false) String sort) {
    
-        return productDAO.findAll(categoryId, brandId, search, sort);
-    }
+        List<Product> products = productService.getAllProducts(categoryId, brandId, search, sort);
+        return ResponseEntity.ok(products);    }
 
     @PostMapping
     public void createProduct(@RequestBody Product product) {
