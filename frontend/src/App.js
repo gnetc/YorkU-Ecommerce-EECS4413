@@ -27,6 +27,7 @@ function App() {
           <Route path="/Product/:productId" element={<ProductDisplay />} /> {/* Updated to use :productId */}
           <Route path='/ShoppingCart' element={<ShoppingCart/>}></Route>
           <Route path='/Registration' element={<Registration/>}></Route>
+          <Route path='/Login' element={<Login/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
