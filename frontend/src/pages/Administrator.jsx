@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./Administrator.css"
+import "./administrator/Administrator.css"
 
 /**
  * Administrator profile page
