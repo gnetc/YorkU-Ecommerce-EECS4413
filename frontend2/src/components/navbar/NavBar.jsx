@@ -1,16 +1,20 @@
-import React, {useContext, useState} from 'react'
-import { Link } from 'react-router-dom';
+import React, {useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import './NavBar.css'
 
 import shoppingCart from "../assets/shoppingCart.jpg"
 import logo from "../assets/placeholder.jpg"
+import profile from "../assets/profile.png"
 import { ShopContext } from '../../context/ShopContext';
+import { LoginContext } from "../../context/LoginState";
 
 const NavBar = () => {
 
     // const[menu, setMenu] = useState("shop");
-    const[menu, setMenu] = useState("All");
-    const {getTotalItems} = useContext(ShopContext);
+    const { getTotalItems } = useContext(ShopContext);
+    const { isLoggedIn } = useContext(LoginContext); 
+    const [menu, setMenu] = useState("All");
+    const navigate = useNavigate();
 
     return (
         <div className='navBar'> 
@@ -24,10 +28,18 @@ const NavBar = () => {
                 <li onClick={() => {setMenu("ByCategory")}}><Link style={{textDecoration: 'none'}} to='/ByCategory'>By Category</Link>{menu === "ByCategory" ? <hr/>:<></>}</li>
                 <li onClick={() => {setMenu("ByGenre")}}><Link style={{textDecoration: 'none'}} to='/ByGenre'>By Genre</Link>{menu === "ByGenre" ? <hr/>:<></>}</li>
             </ul>
-            <div className='navLogin'>
-                <Link to='/Registration'><button>Login</button></Link>
-                <Link to='/ShoppingCart'><img className='shoppingCart' src={shoppingCart} alt=""></img></Link>
-                <div className='shoppingCartCount'>{getTotalItems()}</div>
+            <div className="navLogin">
+                {isLoggedIn ? (
+                <img src={profile} alt="" className="profileIcon" /> 
+                ) : (
+                <Link to="/Registration">
+                    <button>Login</button>
+                </Link>
+                )}
+                <Link to="/ShoppingCart">
+                <img className="shoppingCart" src={shoppingCart} alt="" />
+                </Link>
+                <div className="shoppingCartCount">{getTotalItems()}</div>
             </div>
         </div>
     )
