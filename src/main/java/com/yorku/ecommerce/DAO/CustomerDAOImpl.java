@@ -37,6 +37,17 @@ public class CustomerDAOImpl implements CustomerDAO{
         }
         return customer.get(0);
     }
+    
+    @Transactional
+    @Override
+    public Customer findByPassword(String passwordHash){
+        String query = "SELECT c FROM Customer c WHERE c.passwordHash = :passwordHash";  //query the database for the email inputted 
+        List<Customer> customer = entityManager.createQuery(query, Customer.class).setParameter("passwordHash", passwordHash).getResultList(); //add the customer from the email query to a lsit 
+        if(customer.isEmpty()){ 
+            return null;
+        }
+        return customer.get(0);
+    }
 
     @Transactional
     @Override
