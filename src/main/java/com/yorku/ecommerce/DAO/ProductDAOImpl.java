@@ -62,7 +62,6 @@ public class ProductDAOImpl implements ProductDAO {
     public List<Product> findAll(Integer categoryId, Integer brandId, String search, String sort) {
         StringBuilder queryBuilder = new StringBuilder("SELECT p FROM Product p WHERE 1=1");
 
-        // Add filters dynamically
         if (categoryId != null) {
             queryBuilder.append(" AND p.category.id = :categoryId");
         }
@@ -73,7 +72,6 @@ public class ProductDAOImpl implements ProductDAO {
             queryBuilder.append(" AND (p.name LIKE :search OR p.description LIKE :search)");
         }
 
-        // Add sorting dynamically
         if ("priceAsc".equalsIgnoreCase(sort)) {
             queryBuilder.append(" ORDER BY p.price ASC");
         } else if ("priceDesc".equalsIgnoreCase(sort)) {
@@ -84,10 +82,8 @@ public class ProductDAOImpl implements ProductDAO {
             queryBuilder.append(" ORDER BY p.name DESC");
         }
 
-        // Create query
         TypedQuery<Product> query = entityManager.createQuery(queryBuilder.toString(), Product.class);
 
-        // Set parameters dynamically
         if (categoryId != null) {
             query.setParameter("categoryId", categoryId);
         }

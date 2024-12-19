@@ -1,9 +1,16 @@
 import React, { useContext } from 'react';
 import "./CartItems.css"
 import { ShopContext } from '../../context/ShopContext';
+import { useNavigate } from "react-router-dom";
 
 function CartItems () {
     const {getTotal, productData, cartItems, removeFromCart} = useContext(ShopContext);
+    const navigate = useNavigate();
+
+    const handleCheckout = () => {
+        navigate("/Checkout", { state: { cartItems, productData } }); // Pass cart data to Checkout page
+    };
+
     return (
         <div className='cartItems'>
             <div className='cartFormat'>
@@ -47,10 +54,10 @@ function CartItems () {
                         <hr/>
                         <div className='totalItem'>
                             <h3>Total</h3>
-                            <h3>${getTotal() * 1000000000000}</h3>
+                            <h3>${getTotal() * 100}</h3>
                         </div>
                     </div>
-                    <button>Check Out</button>
+                    <button onClick={handleCheckout}>Check Out</button>
                 </div>
             </div>
         </div>

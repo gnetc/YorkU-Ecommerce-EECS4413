@@ -1,48 +1,95 @@
-.ShopIndex {
+.Filter {
     display: flex;
-    margin: 0px 170px;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: auto;
+    overflow-x: hidden;
 }
-
-.ShopIndex p span {
+  
+.Filter h1 {
+    color: black;
+    font-size: 50px;
     font-weight: 600;
-}
-
-.ShopSort {
-    display: flex;
-    align-items: center;
-    padding: 10px 10px 10px 20px;
-    border-radius: 40px;
-    border: 1px solid grey;
     margin-top: 20px;
 }
-
-.ShopSort img {
-    height: 30px; 
+  
+.Filter hr {
+    width: 200px;
+    height: 6px;
+    border-radius: 10px;
+    background: black;
 }
-
-.ShopSort:hover {
-    cursor: pointer;
+  
+.ShopGrouped {
+    margin-top: 50px;
+    width: 100%;
+    padding: 0px 40px;
 }
-
+  
+.GroupSection {
+    margin-bottom: 40px;
+    width: 100%;
+}
+  
+.GroupSection h2 {
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+    margin-left: 30px;
+    text-align: left;
+}
+  
+.GroupItems {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 30px;
+    justify-content: flex-start;
+}
+  
 .ShopProduct {
-    margin: 20px 170px;
+    margin: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    row-gap: 80px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+    padding: 0 40px;
 }
-
+  
+.Item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    transition: transform 0.2s;
+}
+  
+.Item:hover {
+    transform: scale(1.05);
+}
+  
 .ShopSeeMore {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 150px auto;
+    margin: 50px auto;
     width: 233px;
     height: 69px;
     border-radius: 75px;
     background: lightgrey;
-    color: white;
+    color: black;
     font-size: 18px;
     font-weight: 500;
+    transition: background 0.3s;
 }
+  
+.ShopSeeMore:hover {
+    background: grey;
+    cursor: pointer;
+}
+  
