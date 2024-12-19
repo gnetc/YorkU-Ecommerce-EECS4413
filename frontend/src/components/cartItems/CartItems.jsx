@@ -48,7 +48,7 @@ function CartItems () {
                         <hr/>
                         <div className='totalItem'>
                             <h3>Total</h3>
-                            <h3>${getTotal() * 100}</h3>
+                            <h3>${getTotal() + 100}</h3>
                         </div>
                     </div>
                     <button>Check Out</button>
