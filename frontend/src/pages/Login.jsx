@@ -17,7 +17,6 @@ function Login() {
       await LoginUser(e.target.email.value,e.target.passwordHash.value)
       navigate("/");
     }
-    
   return (
     <div className="login">
       <div className="container">

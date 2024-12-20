@@ -51,14 +51,12 @@ public class Customer {
 
     }
 
-    public Customer(String firstName, String lastName, String email, String passwordHash, String role, String address, String cardNum) {
+    public Customer(String firstName, String lastName, String email, String passwordHash, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.passwordHash = passwordHash;
         this.role = role;
-        this.address = address;
-        this.cardNum = cardNum;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }

@@ -1,7 +1,6 @@
 package com.yorku.ecommerce.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +56,6 @@ public class CustomerController {
                 response.put("lastName", c.getLastName());
                 response.put("id", c.getId());
                 response.put("role", c.getRole());
-                response.put("address", c.getAddress());
-                response.put("cardNum", c.getCardNum());
-                response.put("passwordHash", c.getPasswordHash());
-
                 return ResponseEntity.status(HttpStatus.OK).body(response);
             }
             Map<String, Object> errorResponse = new HashMap<>();
@@ -92,37 +87,32 @@ public class CustomerController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> updateCustomer(@RequestBody Customer customer) {
-        try {
-            // Check if the new email already exists in the database
-            Customer existingCustomer = customerDAO.findByEmail(customer.getEmail());
-            
-            if (existingCustomer == null) { // No conflict with the email
-                boolean updateSuccess = customerDAO.updateCustomer(customer);
-                
-                if (updateSuccess) {
-                    return ResponseEntity.ok(customer); // Return updated customer object
-                } else {
+    public ResponseEntity<String> updateCustomer(@RequestBody Customer customer){
+        try{
+            Customer newCustomerEmail = customerDAO.findByEmail(customer.getEmail());
+            if(newCustomerEmail == null){ // if the new input email doesnt exist in the database
+                if(customerDAO.updateCustomer(customer)){
+                    return ResponseEntity.ok("Customer updated successfully.");
+                }
+                else{
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update the customer.");
                 }
-            } else {
-                // Email conflict
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Customer Email Already Exists");
             }
-        } catch (Exception e) {
-            // Log the error for debugging purposes
-            e.printStackTrace();
-            
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the customer.");
+            else{
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Customer Email Already Exist");
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
         }
     }
+
         @DeleteMapping("/delete")
-        public ResponseEntity<String> removeCustomer(@RequestBody Map<String, Integer> requestBody){
+        public ResponseEntity<String> removeCustomer(@RequestBody Customer customer){
         try {
-            Integer customerId = requestBody.get("id");
-            Customer c = customerDAO.findByID(customerId);
+            Customer c = customerDAO.findByID(customer.getId());
             if(c != null){
-                if(customerDAO.deleteCustomer(customerId)){
+                if(customerDAO.deleteCustomer(customer.getId())){
                     return ResponseEntity.ok("Customer Deleted Successfully.");
                 }
                 else{
@@ -137,14 +127,4 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
         }
     }
-
-    @GetMapping("/customers")
-    public ResponseEntity<Object> getAllCustomers() {
-    try {
-        List<Customer> customers = customerDAO.findAll(); 
-        return ResponseEntity.ok(customers);
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while fetching customers");
-    }
-}
 }
