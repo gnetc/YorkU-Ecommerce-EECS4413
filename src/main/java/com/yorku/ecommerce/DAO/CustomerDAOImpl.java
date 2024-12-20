@@ -113,6 +113,34 @@ public class CustomerDAOImpl implements CustomerDAO{
         return false; // Deletion failed or customer still exists
     }
 
+    public Boolean deleteCustomer(int id) {
+        try {
+            // Check if the customer exists
+            String query = "SELECT c FROM Customer c WHERE c.id = :id";
+            Customer customer = entityManager.createQuery(query, Customer.class)
+                                            .setParameter("id", id)
+                                            .getSingleResult();
+            
+            // Remove the customer
+            entityManager.remove(customer);
+            
+            // Flush the changes to ensure they are persisted
+            entityManager.flush();
+
+            // Check if the customer is really removed
+            if (!entityManager.contains(customer)) {
+                return true; // Successfully deleted
+            }
+        } catch (NoResultException e) {
+            // Handle case where no customer is found with the given ID
+            System.out.println("Customer not found for id: " + id);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log any other exceptions
+        }
+        
+        return false; // Deletion failed or customer still exists
+    }
+
 
     @Transactional
     @Override
@@ -122,7 +150,10 @@ public class CustomerDAOImpl implements CustomerDAO{
         return(customer.getRole().equals("Admin"));
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 
     @Transactional
     @Override

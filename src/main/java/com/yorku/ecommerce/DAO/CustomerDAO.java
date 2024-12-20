@@ -1,5 +1,7 @@
 package com.yorku.ecommerce.DAO;
 
+import java.util.List;
+
 import com.yorku.ecommerce.model.Customer;
 
 public interface CustomerDAO{
@@ -14,7 +16,7 @@ public interface CustomerDAO{
     public Boolean updateCustomer(Customer newCustomerInfo);
     
     public Boolean deleteCustomer(int id);
-
+    public List<Customer> findAll();
     public Boolean checkRole(int id);
 
 }
