@@ -31,6 +31,16 @@ public class Order {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
 
+    @Lob
+    private String productData;
+
+    public String getProductData() {
+        return productData;
+    }
+
+    public void setProductData(String productData) {
+        this.productData = productData;
+    }
     // Getters and Setters
     public int getId() {
         return id;

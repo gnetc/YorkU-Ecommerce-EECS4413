@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../context/LoginState"; 
 
 /**
- * Login page
- * @returns Input fields for login
- */
+ 
+Login page
+@returns Input fields for login*/
 function Login() {
 
     const {LoginUser, errorMessage} = useContext(LoginContext);
@@ -17,6 +17,7 @@ function Login() {
       await LoginUser(e.target.email.value,e.target.passwordHash.value)
       navigate("/");
     }
+
   return (
     <div className="login">
       <div className="container">
@@ -35,14 +36,14 @@ function Login() {
             type="password"
             placeholder="Password"
             name = "passwordHash"
-         
+
           />
         </div>
         <button type = 'submit'>Log In</button>
         </form>
 
         {errorMessage && <p>{errorMessage}</p>}
-   
+
 
       </div>
     </div>
