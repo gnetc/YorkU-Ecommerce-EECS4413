@@ -19,6 +19,7 @@ const NavBar = () => {
     const {getTotalItems} = useContext(ShopContext);
     const {isLoggedIn} = useContext(LoginContext);
 
+
     return (
         <div className='navBar'> 
             <div className='navLogo'>
@@ -32,7 +33,7 @@ const NavBar = () => {
                 <li onClick={() => {setMenu("ByGenre")}}><Link style={{textDecoration: 'none'}} to='/ByGenre'>By Genre</Link>{menu === "ByGenre" ? <hr/>:<></>}</li>
             </ul>
             <div className='navLogin'>
-                {isLoggedIn ? (
+                { isLoggedIn ? (
                 <img src={profile} alt="" className="profileIcon" /> 
                 ) : (
                 <Link to="/Registration">
