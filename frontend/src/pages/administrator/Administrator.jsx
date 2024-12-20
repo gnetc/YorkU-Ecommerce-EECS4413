@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import "./Administrator.css"
+import React, { useState, useEffect } from 'react';
+import "./administrator/Administrator.css"
 
 /**
  * Administrator profile page
@@ -7,9 +7,41 @@ import "./Administrator.css"
  */
 function Administrator () {
     const [activeTab, setActiveTab] = useState("salesHistory");
+    const [customers, setCustomers] = useState([]);
+
+    // Fetch the list of customers when the customerAccount tab is active
+    useEffect(() => {
+        if (activeTab === "customerAccount") {
+            fetch("http://localhost:8080/customers") 
+                .then(response => response.json())
+                .then(data => setCustomers(data))
+                .catch(error => console.error("Error fetching customers:", error));
+        }
+    }, [activeTab]);
+
+    // Handle deleting a customer
+    const handleDeleteCustomer = (customerId) => {
+        fetch("http://localhost:8080/delete", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: customerId }), // Send the customer ID in the request body
+        })
+        .then(response => {
+            if (response.ok) {
+                // Remove the deleted customer from the list in state
+                setCustomers(customers.filter(customer => customer.id !== customerId));
+            } else {
+                console.error("Failed to delete customer");
+            }
+        })
+        .catch(error => console.error("Error deleting customer:", error));
+    };
+
     return (
         <div className='mainpage'>
-            {/* Determine active tab */}
+        
             <div className={`salesHistory ${activeTab === "salesHistory" ? "active" : ""}`}
                 onClick={() => setActiveTab("salesHistory")}>Sales History</div>
             <div className={`customerAccount ${activeTab === "customerAccount" ? "active" : ""}`}
@@ -24,7 +56,15 @@ function Administrator () {
                 )}
                 {activeTab === "customerAccount" && (
                     <div className="customerAccountContent">
-                        <p>Customer Account content</p>
+                        <h2>Customer Accounts</h2>
+                        <ul>
+                            {customers.map(customer => (
+                                <li key={customer.id}>
+                                    <span>{customer.firstName} {customer.lastName}</span>
+                                    <button onClick={() => handleDeleteCustomer(customer.id)}>Delete</button>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 )}
                 {activeTab === "inventory" && (
@@ -33,9 +73,8 @@ function Administrator () {
                     </div>
                 )}
             </div>
-            
         </div>
-    )
+    );
 }
 
-export default Administrator
+export default Administrator;
