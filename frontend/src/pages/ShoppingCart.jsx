@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "../components/cartItems/CartItems.css"; // Import the CSS file
 
 function ShoppingCart() {
-    const { cartItems, getTotal, removeFromCart, addToCart } = useContext(ShopContext);
+    const { cartItems, removeFromCart, addToCart } = useContext(ShopContext);
     const [cartProducts, setCartProducts] = useState([]);
     const { customerId } = useContext(LoginContext); // Access customer_id from LoginContext
     const [totalPrice, setTotalPrice] = useState(0); 
@@ -23,7 +23,7 @@ function ShoppingCart() {
                             return null;
                         }
                         const product = await response.json();
-                        return { ...product, quantity: cartItems[itemId] };
+                        return {...product, quantity: cartItems[itemId]};
                     })
             );
             const validProducts = productDetails.filter((product) => product !== null);
@@ -39,6 +39,8 @@ function ShoppingCart() {
 
         fetchCartProducts();
     }, [cartItems]);
+    
+    const totalItems = Object.values(cartItems).reduce((sum, quantity) => sum + quantity, 0); // Fixed total items calculation
 
     if (cartProducts.length === 0) {
         return <p className="cartItems">Your cart is empty</p>;
@@ -79,7 +81,7 @@ function ShoppingCart() {
                 <div className="cartTotal">
                     <div className="totalItem">
                         <p>Total Items:</p>
-                        <p>{Object.values(cartItems).reduce((a, b) => a + b, 0)}</p>
+                        <p>{totalItems}</p> {/* Display total items */}
                     </div>
                     <div className="totalItem">
                         <p>Total Price:</p>
