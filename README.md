@@ -68,6 +68,28 @@ docker run --name ecommerce-frontend --network ecommerce-network \
 - **Frontend:** Access the frontend at `http://localhost:3000`
 - **Backend:** Access the backend API at `http://localhost:8080`
 
+# If that doesn't work:
+
+## Run Docker Locally
+
+1. **Pull the Docker Images:**
+   ```bash
+   docker pull gnettt/yorku-ecommerce-eecs4413-backend:latest
+   docker pull gnettt/yorku-ecommerce-eecs4413-frontend:latest
+   ```
+2. **Clone the repository:**
+   ```bash
+   git clone https://github.com/gnetc/YorkU-Ecommerce-EECS4413.git
+   cd YorkU-Ecommerce-EECS4413
+   ```
+
+3. **Start the containers and access the app:**
+   ```bash
+   docker compose up --build
+   Frontend: Open http://localhost:3000 in your browser.
+   Backend: API available at http://localhost:8080.
+   ```
+
 ---
 
 ## SQL Scripts
@@ -75,6 +97,55 @@ If the database needs to be reinitialized or restored, the SQL scripts can be fo
 
 ---
 
+## Running Locally Without Docker
+
+### Prerequisites
+
+- Node.js and npm
+- Java 17 or higher
+- MySQL 8.0
+
+### Steps
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/gnettt/YorkU-Ecommerce-EECS4413.git
+   cd YorkU-Ecommerce-EECS4413
+   ```
+
+2. Set up the Database:
+   Run the SQL Scripts in the repository to initialize the database.
+
+3. Start the backend
+   Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+   Build and start the app:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+4. Start the frontend
+   Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+   Install dependencies and start
+   ```bash
+   npm install
+   npm start
+   ```
+
+5. Access the application:
+Frontend: Open http://localhost:3000 in your browser.
+Backend: API available at http://localhost:8080.
+---
+## Admin Account Credentials
+To access the admin panel, use the following credentials:
+
+Email: use@gmail.com
+Password: 123
+---
 ## GitHub Repository
 The source code and additional resources for this project are available in the following GitHub repository:
 
@@ -84,3 +155,4 @@ The source code and additional resources for this project are available in the f
 
 ## Notes
 Ensure Docker is running on your machine before executing the commands. For any issues or queries, please contact the project contributors through the GitHub repository.
+
