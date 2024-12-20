@@ -74,7 +74,9 @@ public class CustomerDAOImpl implements CustomerDAO{
         existingCustomer.setEmail(newCustomerInfo.getEmail());
         existingCustomer.setPasswordHash(newCustomerInfo.getPasswordHash());
         existingCustomer.setRole(newCustomerInfo.getRole());
-
+        existingCustomer.setAddress(newCustomerInfo.getAddress());
+        existingCustomer.setCardNum(newCustomerInfo.getCardNum());
+        
         if(entityManager.merge(existingCustomer) != null){ // 
             return true;
         }

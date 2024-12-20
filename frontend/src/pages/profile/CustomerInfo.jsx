@@ -12,24 +12,66 @@ const CustomerInfo = () => {
     const navigate = useNavigate();
     const { isLoggedIn, userdata, LogoutUser } = useContext(LoginContext);
 
+    // State for editable fields
+    const [firstName, setFirstName] = useState(userdata?.firstName || "");
+    const [lastName, setLastName] = useState(userdata?.lastName || "");
+    const [email, setEmail] = useState(userdata?.email || "");
+    const [creditCard, setCreditCard] = useState(userdata?.cardNum || "");
+    const [shippingAddress, setShippingAddress] = useState(userdata?.address || "");
+    const [id] = useState(userdata?.id || "");
+    const [role] = useState(userdata?.role || "");
+    const [passwordHash] = useState(userdata?.passwordHash || "");
+
     useEffect(() => {
         if (!isLoggedIn) {
-            navigate('/');
+            navigate('/'); // Redirect to home if not logged in
         }
     }, [isLoggedIn, navigate]);
 
     const toAdmin = () => {
-        navigate("/Administrator");
+        navigate("/Administrator"); // Redirect to the admin page
     };
 
     const signout = () => {
-        LogoutUser(); // Use the LogoutUser from context
+        LogoutUser(); // Logout the user using context
         navigate('/'); // Redirect to home after logout
+    };
+
+    const handleUpdate = () => {
+        const updatedCustomer = {
+            id,                    
+            firstName,             
+            lastName,              
+            email,                 
+            cardNum: creditCard,   
+            address: shippingAddress, 
+            passwordHash,         
+            role,                  
+        };
+        
+        fetch('http://localhost:8080/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedCustomer),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Update successful:", data);
+        })
+        .catch(error => {
+            console.error("Error updating profile:", error);
+        });
     };
 
     return (
         <div className='mainpage'>
-            {/* Tabs */}
             <div 
                 className={`profile ${activeTab === "Profile" ? "active" : ""}`} 
                 onClick={() => setActiveTab("Profile")}
@@ -46,12 +88,50 @@ const CustomerInfo = () => {
             <div className='square'>
                 {activeTab === "Profile" ? (
                     <div className="profileContent">
-                        {/* Example profile */}
-                        <p>Name: <b>{userdata ? `${userdata.firstName} ${userdata.lastName}` : "N/A"}</b> <button>Edit</button></p>
-                        <p>Email: <b>{userdata ? userdata.email : "N/A"}</b> <button>Edit</button></p>
-                        <p>Credit Card: <b>{userdata ? userdata.creditCard : "**** **** **** 1234"}</b> <button>Edit</button></p>
-                        <p>Shipping Address: <b>{userdata ? userdata.shippingAddress : "N/A"}</b> <button>Edit</button></p>
-                        <button className='toAdmin' onClick={toAdmin}>Admin Page</button>
+                        {/* Profile fields */}
+                        <p>Name: <b>{userdata ? `${userdata.firstName} ${userdata.lastName}` : "N/A"}</b></p>
+                        <input 
+                            type="text" 
+                            value={firstName}
+                            onChange={e => setFirstName(e.target.value)} 
+                        />
+                        <button onClick={handleUpdate}>Edit</button>
+
+                        <input 
+                            type="text" 
+                            value={lastName}
+                            onChange={e => setLastName(e.target.value)} 
+                        />
+                        <button onClick={handleUpdate}>Edit</button>
+
+                        <p>Email: <b>{userdata ? userdata.email : "N/A"}</b></p>
+                        <input 
+                            type="email" 
+                            value={email}
+                            onChange={e => setEmail(e.target.value)} 
+                        />
+                        <button onClick={handleUpdate}>Edit</button>
+
+                        <p>Credit Card: <b>{userdata ? userdata.cardNum : "**** **** **** 1234"}</b></p>
+                        <input 
+                            type="text" 
+                            value={creditCard}
+                            onChange={e => setCreditCard(e.target.value)} 
+                        />
+                        <button onClick={handleUpdate}>Edit</button>
+
+                        <p>Shipping Address: <b>{userdata ? userdata.address : "N/A"}</b></p>
+                        <input 
+                            type="text" 
+                            value={shippingAddress}
+                            onChange={e => setShippingAddress(e.target.value)} 
+                        />
+                        <button onClick={handleUpdate}>Edit</button>
+
+                        {userdata && userdata.role === "ADMIN" && (
+                            <button className='toAdmin' onClick={toAdmin}>Admin Page</button>
+                        )}
+
                         <button className='signout' onClick={signout}>Sign Out</button>
                     </div>
                 ) : (

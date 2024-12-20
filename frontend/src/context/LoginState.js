@@ -47,7 +47,11 @@ export const LoginProvider = ({ children }) => {
       lastName: result.lastName,
       id: result.id,
       role: result.role,
+      address: result.address,
+      cardNum: result.cardNum,
+      passwordHash: result.passwordHash
     }));
+    
     localStorage.setItem("isLoggedIn", "true"); // Update login status in localStorage
     setLoggedInState(true); // set the logged in to true 
     setUserData(result);
