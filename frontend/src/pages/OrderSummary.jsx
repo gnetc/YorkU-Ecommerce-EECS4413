@@ -17,49 +17,42 @@ const OrderSummary = () => {
     const fetchOrder = async () => {
       try {
         const orderId = location.state?.orderId;
-        console.log("Order ID from location:", orderId);
         if (!orderId) throw new Error("Order ID is missing");
-  
+
         const response = await fetch(`http://localhost:8080/api/orders/${orderId}`);
-        console.log("Order fetch response status:", response.status);
         if (!response.ok) throw new Error("Failed to fetch order details");
-  
+
         const data = await response.json();
-        console.log("Fetched order details:", data);
         setOrderDetails(data);
-  
-        if (!data.productData) {
-          console.log("No productData found in the order details.");
-          return; // orderedProducts will remain empty
+        console.log("Order details from backend:", data);
+
+
+        // Now we expect data.items to be something like [{ productId: 1, quantity: 2 }, ...]
+        if (!data.items || data.items.length === 0) {
+          // No items in the order
+          return;
         }
-  
-        const productData = JSON.parse(data.productData);
-        console.log("Parsed productData:", productData);
-  
+
+        // Fetch product details for each item, similar to Checkout.jsx
         const productDetails = await Promise.all(
-          productData.map(async (item) => {
-            console.log(`Fetching product with ID: ${item.productId}`);
+          data.items.map(async (item) => {
+            console.log("Fetching product with ID:", item.productId);
             const productRes = await fetch(`http://localhost:8080/api/products/${item.productId}`);
-            console.log(`Product fetch status for ID ${item.productId}:`, productRes.status);
-  
+            console.log(`Fetch status for product ${item.productId}:`, productRes.status);
+            
             if (!productRes.ok) {
               console.error(`Failed to fetch product with ID ${item.productId}`);
               return null;
             }
-  
+        
             const product = await productRes.json();
-            console.log("Fetched product:", product);
-            return {
-              ...product,
-              quantity: item.quantity
-            };
+            console.log("Fetched product data:", product);
+            return { ...product, quantity: item.quantity };
           })
         );
-  
+
         const validProducts = productDetails.filter(p => p !== null);
-        console.log("Valid products array:", validProducts);
         setOrderedProducts(validProducts);
-  
       } catch (err) {
         console.error("Error fetching order summary:", err);
         setError(err.message);
@@ -67,7 +60,7 @@ const OrderSummary = () => {
         setLoading(false);
       }
     };
-  
+
     fetchOrder();
   }, [location.state]);
 
@@ -98,24 +91,22 @@ const OrderSummary = () => {
       <h2>Products Ordered:</h2>
       {orderedProducts.length > 0 ? (
         orderedProducts.map((item, index) => (
-            <div key={index} className="orderItem">
+          <div key={index} className="orderItem">
             <img
-                src={item.image_url || "/images/fallback-image.png"}
-                alt={item.name}
-                className="orderItemImage"
+              src={item.image_url || "/images/fallback-image.png"}
+              alt={item.name}
+              className="orderItemImage"
             />
             <div>
-                <p><strong>Name:</strong> {item.name}</p>
-                <p><strong>Price:</strong> ${item.price.toFixed(2)}</p>
-                <p><strong>Quantity:</strong> {item.quantity}</p>
+              <p><strong>Name:</strong> {item.name}</p>
+              <p><strong>Price:</strong> ${item.price.toFixed(2)}</p>
+              <p><strong>Quantity:</strong> {item.quantity}</p>
             </div>
-            </div>
+          </div>
         ))
-        ) : (
+      ) : (
         <p>No items found in this order.</p>
-        )}
-
-
+      )}
 
       <h2>Total Price: ${orderDetails?.totalPrice?.toFixed(2)}</h2>
       <button onClick={() => navigate("/")}>Return to Home</button>

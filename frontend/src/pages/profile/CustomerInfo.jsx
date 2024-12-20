@@ -84,13 +84,6 @@ const CustomerInfo = () => {
             >
                 Profile
             </div>
-            <div
-                className={`purchaseHistory ${activeTab === "purchaseHistory" ? "active" : ""}`}
-                onClick={() => setActiveTab("purchaseHistory")}
-            >
-                Purchase History
-            </div>
-
             <div className='square'>
                 {activeTab === "Profile" ? (
                     <div className="profileContent">

@@ -1,5 +1,6 @@
 package com.yorku.ecommerce.controller;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yorku.ecommerce.DAO.CustomerDAO;
+import com.yorku.ecommerce.DAO.OrderDAO;
+import com.yorku.ecommerce.model.Customer;
 import com.yorku.ecommerce.model.Order;
 import com.yorku.ecommerce.service.OrderRequestDTO;
 import com.yorku.ecommerce.service.OrderService;
@@ -22,19 +27,42 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody OrderRequestDTO orderReq) {
-        System.out.println("Creating order for customer ID: " + orderReq.getCustomerId());
-        Order order = orderService.createOrder(
-                orderReq.getCustomerId(),
-                orderReq.getTotalAmount(),
-                orderReq.getTotalPrice(),
-                "PLACED"
-        );
-        System.out.println("Created Order ID: " + order.getId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(order);
-    }
+    @Autowired
+    private CustomerDAO customerDAO;
 
+    @Autowired
+    private OrderDAO orderDAO;
+
+    @PostMapping
+    public ResponseEntity<Order> createOrder(@RequestBody Map<String, Object> orderData) {
+        int customerId = (int) orderData.get("customerId");
+        double totalAmount = Double.parseDouble(orderData.get("totalAmount").toString());
+        double totalPrice = Double.parseDouble(orderData.get("totalPrice").toString());
+        List<Map<String, Object>> items = (List<Map<String, Object>>) orderData.get("items");
+
+        ObjectMapper mapper = new ObjectMapper();
+        String productDataJson;
+        try {
+            productDataJson = mapper.writeValueAsString(items);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to serialize product data", e);
+        }
+
+        Customer customer = customerDAO.findByID(customerId);
+        if (customer == null) {
+            throw new IllegalArgumentException("Invalid customer ID: " + customerId);
+        }
+
+        Order order = new Order();
+        order.setCustomer(customer);
+        order.setTotalAmount(totalAmount);
+        order.setTotalPrice(totalPrice);
+        order.setStatus("PLACED");
+        order.setProductData(productDataJson);
+
+        Order savedOrder = orderDAO.save(order);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedOrder);
+}
 
     @GetMapping("/{orderId}")
     public ResponseEntity<Order> getOrderById(@PathVariable int orderId) {
