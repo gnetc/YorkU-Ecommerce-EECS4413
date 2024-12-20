@@ -61,7 +61,7 @@ function ProductDisplay() {
                 <div className="displayImg">
                     <img
                         className="displayMain"
-                        src={product.image_url} // Ensure backend uses 'image_url'
+                        src={product.image_url} 
                         alt={product.name}
                     />
                 </div>

@@ -20,7 +20,6 @@ public class CartService {
     }
 
     public void addToCart(int customerId, CartItem cartItem) {
-        // Fetch the product using the product ID
         if (cartItem.getProduct() == null || cartItem.getProduct().getId() == null) {
             throw new IllegalArgumentException("Product ID is missing in the cart item.");
         }
@@ -30,10 +29,8 @@ public class CartService {
             throw new IllegalArgumentException("Product not found for id: " + cartItem.getProduct().getId());
         }
 
-        // Set the fetched product in the cart item
         cartItem.setProduct(product);
 
-        // Add the cart item to the cart (implementation based on your logic)
         System.out.println("Added product: " + product.getName() + " to cart for customer: " + customerId);
     }
 

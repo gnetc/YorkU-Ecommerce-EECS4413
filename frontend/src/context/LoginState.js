@@ -61,6 +61,9 @@ export const LoginProvider = ({ children }) => {
     setUserData(null); // Clear user data state
   }
 
+  const customerId = userdata ? userdata.id : null;
+
+
   return (
     <LoginContext.Provider value={{ LoginUser, LogoutUser, userdata, isLoggedIn, errorMessage }}>
       {children}

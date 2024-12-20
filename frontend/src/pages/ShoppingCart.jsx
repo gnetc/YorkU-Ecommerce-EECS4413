@@ -1,11 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
+import { LoginContext } from "../context/LoginState";
 import { useNavigate } from "react-router-dom";
 import "../components/cartItems/CartItems.css"; // Import the CSS file
 
 function ShoppingCart() {
     const { cartItems, getTotal, removeFromCart, addToCart } = useContext(ShopContext);
     const [cartProducts, setCartProducts] = useState([]);
+    const { customerId } = useContext(LoginContext); // Access customer_id from LoginContext
     const [totalPrice, setTotalPrice] = useState(0); 
     const navigate = useNavigate();
 
