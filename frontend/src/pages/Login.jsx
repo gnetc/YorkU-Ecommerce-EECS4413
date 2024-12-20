@@ -26,12 +26,21 @@ function Login() {
             })
         })
         if(!response.ok){  //handle errors
-            const message = await response.text()
-            setErrorState(message)
-            console.log(message)
+            const result = await response.json()
+            setErrorState(result.message)
             return
         }
-        const data = await response.text()
+        const result = await response.json()
+        console.log(result);
+        localStorage.setItem("user", JSON.stringify({
+          email: result.email,
+          firstName: result.firstName,
+          lastName: result.lastName,
+          id: result.id,
+          role: result.role
+
+
+        }));
         navigate("/")
     
     }

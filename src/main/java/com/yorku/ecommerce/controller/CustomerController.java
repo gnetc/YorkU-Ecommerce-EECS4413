@@ -1,5 +1,6 @@
 package com.yorku.ecommerce.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,18 +46,29 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> checkLogin(@RequestBody Map<String, String> LoginData){
+    public ResponseEntity<Map<String, Object>> checkLogin(@RequestBody Map<String, String> LoginData){
         try{
             Customer c = customerDAO.findByEmail(LoginData.get("email"));
             if(c != null && c.getPasswordHash().equals(LoginData.get("passwordHash"))){
-                return ResponseEntity.status(HttpStatus.CREATED).body("Login Success");
+                Map<String, Object> response = new HashMap<>();
+                response.put("email", c.getEmail());
+                response.put("firstName", c.getFirstName());
+                response.put("lastName", c.getLastName());
+                response.put("id", c.getId());
+                response.put("role", c.getRole());
+                return ResponseEntity.status(HttpStatus.OK).body(response);
             }
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Customer Does Not Exist");
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Customer Does Not Exist");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
         catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error Occurred");
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Error Occurred");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
+    
 
     @GetMapping("/me")
     public ResponseEntity<String> getCustomer(@RequestBody Customer customer){
