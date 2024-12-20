@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://ecommercegnet.mysql.database.azure.com:3306/ecommerce_db?useSSL=true
+      SPRING_DATASOURCE_USERNAME: eecs4413login
+      SPRING_DATASOURCE_PASSWORD: michellegnetrayEECS4413
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: ecommerce_db
+      MYSQL_USER: eecs4413login
+      MYSQL_PASSWORD: michellegnetrayEECS4413
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
