@@ -45,6 +45,7 @@ const CustomerInfo = () => {
 
             <div className='square'>
                 {activeTab === "Profile" ? (
+<<<<<<< HEAD
                     <div className="profileContent">
                         {/* Example profile */}
                         <p>Name: <b>{userdata ? `${userdata.firstName} ${userdata.lastName}` : "N/A"}</b> <button>Edit</button></p>
@@ -61,6 +62,16 @@ const CustomerInfo = () => {
                             <p>Date</p>
                             <p>Price</p>
                             <p>Quantity</p>
+=======
+                        <div className="profileContent">
+                            {/* Example profile */}
+                            <p>Name: <input type="text" value="Your name"/> <button>Edit</button></p> 
+                            <p>Email: <input type="text" value="testemail@gmail.com"/> <button>Edit</button></p>
+                            <p>Credit Card: <input type="text" value="**** **** **** 123"/> <button>Edit</button></p>
+                            <p>Shipping Address: <input type="text" value="123 Main St"/> <button>Edit</button></p>
+                            <button className='toAdmin' onClick={toAdmin}>Admin Page</button>
+                            <button className='signout' onClick={signout}>Sign Out</button>
+>>>>>>> 2256b48fc3d725a3d58be4c7cf60ceaa2934cdf9
                         </div>
                         <hr />
                         {/* Example purchase history */}
