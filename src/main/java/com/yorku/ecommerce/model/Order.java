@@ -10,43 +10,34 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer orderId;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @Column(name = "total_amount", nullable = false)
+    private double totalAmount;
+
     @Column(name = "total_price", nullable = false)
-    private Double totalPrice;
+    private double totalPrice;
 
     @Column(nullable = false)
     private String status;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    // Constructors
-    public Order() {}
-
-    public Order(Customer customer, Double totalPrice, String status) {
-        this.customer = customer;
-        this.totalPrice = totalPrice;
-        this.status = status;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     // Getters and Setters
-    public Integer getOrderId() {
-        return orderId;
+    public int getId() {
+        return id;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Customer getCustomer() {
@@ -57,11 +48,19 @@ public class Order {
         this.customer = customer;
     }
 
-    public Double getTotalPrice() {
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 

@@ -9,10 +9,12 @@ import Administrator from './pages/Administrator.jsx';
 
 import NavBar from './components/navbar/NavBar.jsx';
 import Filter from './pages/Filter.jsx';
-import ProductDisplay from './components/productDisplay/ProductDisplay.jsx'; 
+import ProductDisplay from './components/productDisplay/ProductDisplay.jsx'; // Import the ProductDisplay component
 import All from "./pages/All.jsx" 
 import { LoginContext } from './context/LoginState.js';
 import CustomerInfo from './pages/profile/CustomerInfo.jsx';
+import OrderSummary from "./pages/OrderSummary";
+
 
 function App() {
   return (
@@ -25,13 +27,14 @@ function App() {
           <Route path='/ByBrand' element={<Filter Filter="ByBrand"/>}></Route>
           <Route path='/ByCategory' element={<Filter Filter="ByCategory"/>}></Route>
           <Route path='/ByGenre' element={<Filter Filter="ByGenre"/>}></Route>
-          <Route path="/Product/:productId" element={<ProductDisplay />} /> 
+          <Route path="/Product/:productId" element={<ProductDisplay />} /> {/* Updated to use :productId */}
           <Route path='/ShoppingCart' element={<ShoppingCart/>}></Route>
           <Route path='/Registration' element={<Registration/>}></Route>
           <Route path='/Login' element={<Login/>}></Route>
-          <Route path="/checkout" element={<Checkout />} />
           <Route path='/CustomerInfo' element={<CustomerInfo/>}></Route>
           <Route path='/Administrator' element={<Administrator/>}></Route>
+          <Route path="/Checkout" element={<Checkout />} />
+          <Route path="/OrderSummary" element={<OrderSummary />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,0 +1,40 @@
+.orderSummaryPage {
+    margin: 50px;
+    font-family: Arial, sans-serif;
+}
+
+.orderSummaryPage h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.orderSummaryPage p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.orderItem {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.orderItemImage {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.orderItem p {
+    margin: 0;
+    font-size: 16px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-top: 20px;
+}

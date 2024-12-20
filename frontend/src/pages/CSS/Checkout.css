@@ -1,32 +1,97 @@
 .checkoutPage {
     display: flex;
-    margin: 150px 170px;
+    flex-direction: column; /* Stack form and items vertically */
+    margin: 50px 100px;
+    gap: 30px; /* Add space between form and cart items */
 }
 
-.checkoutForm {
-    flex: 1; 
-    display: flex;
-    flex-direction: column; 
-    width: 500px;
-    gap: 10px;
+.checkoutForm input[type="text"],
+.checkoutForm input[type="password"] {
+    width: 100%; /* Full width */
+    height: 30px; /* Consistent height */
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border 0.2s ease, box-shadow 0.2s ease;
 }
+
+.checkoutForm input[type="text"]:focus,
+.checkoutForm input[type="password"]:focus {
+    border: 1px solid #ff4500; /* Highlight border */
+    box-shadow: 0 0 5px rgba(255, 69, 0, 0.4); /* Subtle glow */
+    outline: none; /* Remove default focus outline */
+}
+
+.checkoutForm .cardDetails {
+    display: flex;
+    gap: 15px; /* Space between fields */
+    margin-bottom: 15px;
+}
+
+.checkoutForm .cardDetails input[type="text"],
+.checkoutForm .cardDetails input[type="password"] {
+    flex: 1; /* Distribute space evenly */
+}
+
 
 .checkoutItem {
-    margin: 10px;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    gap: 15px; /* Space between image and text */
+    flex-wrap: wrap; /* Ensure items wrap within the container */
+}
+
+.checkoutItem img {
+    width: 80px;
+    height: auto;
+    border-radius: 4px;
+    object-fit: contain;
+}
+
+.checkoutItem .item {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
 }
 
 .checkoutPage button {
+    display: block;
+    width: 100%;
     height: 50px;
-    margin-top: 500px;
+    margin-top: 30px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff4500;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.checkoutPage button:hover {
+    background-color: #ff652f;
 }
 
 .submission {
-    margin-top: 400px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #555;
+    margin: 10px 0;
 }
 
 .error {
     color: red;
-    font-size: 20px;
+    font-size: 16px;
     margin-top: 10px;
 }
