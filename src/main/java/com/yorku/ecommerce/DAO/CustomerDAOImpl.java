@@ -103,4 +103,11 @@ public class CustomerDAOImpl implements CustomerDAO{
         Customer customer = entityManager.createQuery(query, Customer.class).setParameter("id", id).getSingleResult();
         return(customer.getRole().equals("Admin"));
     }
+    
+    @Transactional
+    @Override
+    public List<Customer> findAll(){
+        String query = "SELECT c FROM Customer c";  // Query to find all customers
+        return entityManager.createQuery(query, Customer.class).getResultList();  // Return the list of all customers
+    }
 }

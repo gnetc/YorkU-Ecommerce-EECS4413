@@ -1,6 +1,7 @@
 package com.yorku.ecommerce.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,11 +117,12 @@ public class CustomerController {
         }
     }
         @DeleteMapping("/delete")
-        public ResponseEntity<String> removeCustomer(@RequestBody Customer customer){
+        public ResponseEntity<String> removeCustomer(@RequestBody Map<String, Integer> requestBody){
         try {
-            Customer c = customerDAO.findByID(customer.getId());
+            Integer customerId = requestBody.get("id");
+            Customer c = customerDAO.findByID(customerId);
             if(c != null){
-                if(customerDAO.deleteCustomer(customer.getId())){
+                if(customerDAO.deleteCustomer(customerId)){
                     return ResponseEntity.ok("Customer Deleted Successfully.");
                 }
                 else{
@@ -135,4 +137,14 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
         }
     }
+
+    @GetMapping("/customers")
+    public ResponseEntity<Object> getAllCustomers() {
+    try {
+        List<Customer> customers = customerDAO.findAll(); 
+        return ResponseEntity.ok(customers);
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while fetching customers");
+    }
+}
 }
