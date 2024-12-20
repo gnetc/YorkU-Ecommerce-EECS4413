@@ -33,10 +33,10 @@ const CustomerInfo = () => {
                 {activeTab === "Profile" ? (
                         <div className="profileContent">
                             {/* Example profile */}
-                            <p>Name: <b>Your name</b> <button>Edit</button></p> 
-                            <p>Email: <b>testemail@gmail.com</b> <button>Edit</button></p>
-                            <p>Credit Card: <b>**** **** **** 1234</b> <button>Edit</button></p>
-                            <p>Shipping Address: <b>123 Main St</b> <button>Edit</button></p>
+                            <p>Name: <input type="text" value="Your name"/> <button>Edit</button></p> 
+                            <p>Email: <input type="text" value="testemail@gmail.com"/> <button>Edit</button></p>
+                            <p>Credit Card: <input type="text" value="**** **** **** 123"/> <button>Edit</button></p>
+                            <p>Shipping Address: <input type="text" value="123 Main St"/> <button>Edit</button></p>
                             <button className='toAdmin' onClick={toAdmin}>Admin Page</button>
                             <button className='signout' onClick={signout}>Sign Out</button>
                         </div>
