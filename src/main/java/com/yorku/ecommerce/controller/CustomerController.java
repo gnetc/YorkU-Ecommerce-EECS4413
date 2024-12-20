@@ -1,6 +1,7 @@
 package com.yorku.ecommerce.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,4 +128,13 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
         }
     }
+    @GetMapping("/customers")
+    public ResponseEntity<Object> getAllCustomers() {
+    try {
+        List<Customer> customers = customerDAO.findAll(); 
+        return ResponseEntity.ok(customers);
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while fetching customers");
+    }
+}
 }
