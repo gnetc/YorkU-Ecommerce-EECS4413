@@ -1,10 +1,13 @@
 package com.yorku.ecommerce.service;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.yorku.ecommerce.DAO.CustomerDAO;
+import com.yorku.ecommerce.DAO.OrderDAO;
 import com.yorku.ecommerce.model.Customer;
 import com.yorku.ecommerce.model.Order;
-import com.yorku.ecommerce.DAO.OrderDAO;
-import com.yorku.ecommerce.DAO.CustomerDAO;
 
 
 
@@ -35,6 +38,9 @@ public class OrderService {
 
     public Order getOrderById(int orderId) {
         return orderDAO.findById(orderId);
+    }
+    public List<Order> getAllOrders() {
+        return orderDAO.findAll(); // Get all orders from the DAO
     }
     
 }

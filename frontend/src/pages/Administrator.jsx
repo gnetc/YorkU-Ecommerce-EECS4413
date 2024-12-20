@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "./administrator/Administrator.css"
+import "./administrator/Administrator.css";
 
 /**
  * Administrator profile page
@@ -8,6 +8,7 @@ import "./administrator/Administrator.css"
 function Administrator () {
     const [activeTab, setActiveTab] = useState("salesHistory");
     const [customers, setCustomers] = useState([]);
+    const [orders, setOrders] = useState([]); // New state to store orders
 
     // Fetch the list of customers when the customerAccount tab is active
     useEffect(() => {
@@ -15,14 +16,27 @@ function Administrator () {
             fetch("http://localhost:8080/customers") // Replace with actual API endpoint
                 .then(response => response.json())
                 .then(data => {
-                    // If the response has a nested structure, make sure to access the array correctly
                     if (Array.isArray(data)) {
-                        setCustomers(data); // Directly set the array if it's already an array
+                        setCustomers(data);
                     } else {
                         console.error("Unexpected response structure:", data);
                     }
                 })
                 .catch(error => console.error("Error fetching customers:", error));
+        }
+
+        // Fetch all orders when the salesHistory tab is active
+        if (activeTab === "salesHistory") {
+            fetch("http://localhost:8080/api/orders") // Replace with the actual API endpoint for orders
+                .then(response => response.json())
+                .then(data => {
+                    if (Array.isArray(data)) {
+                        setOrders(data); // Set orders data if it's an array
+                    } else {
+                        console.error("Unexpected response structure:", data);
+                    }
+                })
+                .catch(error => console.error("Error fetching orders:", error));
         }
     }, [activeTab]);
 
@@ -58,7 +72,17 @@ function Administrator () {
             <div className='square'>
                 {activeTab === "salesHistory" && (
                     <div className="salesHistoryContent">
-                        <p>Sales History content</p>
+                        <h2>Sales History</h2>
+                        <ul>
+                            {orders.map(order => (
+                                <li key={order.id}>
+                                    <span>Order ID: {order.id}</span> - 
+                                    <span>Customer ID: {order.customer.id}</span> - 
+                                    <span>Total Amount: ${order.totalAmount}</span> - 
+                                    <span>Status: {order.status}</span>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 )}
                 {activeTab === "customerAccount" && (
