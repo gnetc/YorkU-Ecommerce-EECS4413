@@ -11,7 +11,7 @@ export const LoginProvider = ({ children }) => {
 
   console.log(isLoggedIn)
   return (
-    <LoginContext.Provider value={setLoggedInState}>
+    <LoginContext.Provider value={{isLoggedIn, setLoggedInState}}>
       {children}
     </LoginContext.Provider>
   );

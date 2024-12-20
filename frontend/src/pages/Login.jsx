@@ -8,7 +8,7 @@ import { LoginContext } from "../context/LoginState";
  * @returns Input fields for login
  */
 function Login() {
-    const setLoggedInState = useContext(LoginContext);
+    const {setLoggedInState} = useContext(LoginContext);
     
     const navigate = useNavigate();
     const [errorMessage, setErrorState] = useState(null)
@@ -44,7 +44,6 @@ function Login() {
 
         }));
         setLoggedInState(true)
-        console.log(setLoggedInState)
         navigate("/")
     
     }

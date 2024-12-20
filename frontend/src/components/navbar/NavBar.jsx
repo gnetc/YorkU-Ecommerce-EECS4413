@@ -17,6 +17,7 @@ const NavBar = () => {
     // const[menu, setMenu] = useState("shop");
     const[menu, setMenu] = useState("All");
     const {getTotalItems} = useContext(ShopContext);
+    const {isLoggedIn} = useContext(LoginContext);
 
     return (
         <div className='navBar'> 
@@ -31,8 +32,16 @@ const NavBar = () => {
                 <li onClick={() => {setMenu("ByGenre")}}><Link style={{textDecoration: 'none'}} to='/ByGenre'>By Genre</Link>{menu === "ByGenre" ? <hr/>:<></>}</li>
             </ul>
             <div className='navLogin'>
-                <Link to='/Registration'><button>Login</button></Link>
-                <Link to='/ShoppingCart'><img className='shoppingCart' src={shoppingCart} alt=""></img></Link>
+                {isLoggedIn ? (
+                <img src={profile} alt="" className="profileIcon" /> 
+                ) : (
+                <Link to="/Registration">
+                    <button>Login</button>
+                </Link>
+                )}
+                <Link to="/ShoppingCart">
+                <img className="shoppingCart" src={shoppingCart} alt="" />
+                </Link>
                 <div className='shoppingCartCount'>{getTotalItems()}</div>
             </div>
         </div>
