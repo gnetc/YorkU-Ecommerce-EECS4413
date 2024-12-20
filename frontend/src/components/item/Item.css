@@ -1,5 +1,6 @@
 .item {
     width: 350px;
+    text-align: center;
 }
 
 .item p {
@@ -7,7 +8,6 @@
 }
 
 .itemPrices {
-    display: flex;
     gap: 20px;
     color: black;
     font-size: 18px;
