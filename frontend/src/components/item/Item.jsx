@@ -17,7 +17,7 @@ function Item({ id, name, image, price }) {
             <Link to={`/product/${id}`}>
                 <img src={image || '/path-to-placeholder-image.jpg'} alt={name || 'Product'} />
                 <p>{name}</p>
-                <div className='itemPrices'>${price}</div>
+                <p className='itemPrices'>${price}</p>
             </Link>
         </div>
     );

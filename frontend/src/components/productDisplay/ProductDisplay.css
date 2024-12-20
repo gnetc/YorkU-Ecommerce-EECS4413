@@ -1,6 +1,7 @@
 .productDisplay {
     display: flex;
-    margin: 0px 170px;
+    margin: 20px 170px;
+    align-items: center;
 }
 
 .displayLeft {
@@ -76,4 +77,9 @@
     border: none;
     outline: none;
     cursor: pointer;
+}
+
+.displayImg img {
+    height: 500px;
+    object-fit: contain; 
 }
