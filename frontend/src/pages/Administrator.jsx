@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import "./administrator/Administrator.css"
 
-
+/**
+ * Administrator profile page
+ * @returns administrator page
+ */
 function Administrator () {
     const [activeTab, setActiveTab] = useState("salesHistory");
     const [customers, setCustomers] = useState([]);
@@ -9,7 +12,7 @@ function Administrator () {
     // Fetch the list of customers when the customerAccount tab is active
     useEffect(() => {
         if (activeTab === "customerAccount") {
-            fetch("http://localhost:8080/customers")
+            fetch("http://localhost:8080/customers") // Replace with actual API endpoint
                 .then(response => response.json())
                 .then(data => {
                     // If the response has a nested structure, make sure to access the array correctly
@@ -45,7 +48,7 @@ function Administrator () {
 
     return (
         <div className='mainpage'>
-          
+            {/* Determine active tab */}
             <div className={`salesHistory ${activeTab === "salesHistory" ? "active" : ""}`}
                 onClick={() => setActiveTab("salesHistory")}>Sales History</div>
             <div className={`customerAccount ${activeTab === "customerAccount" ? "active" : ""}`}

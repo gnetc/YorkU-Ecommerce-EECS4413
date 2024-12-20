@@ -12,9 +12,16 @@ function Administrator () {
     // Fetch the list of customers when the customerAccount tab is active
     useEffect(() => {
         if (activeTab === "customerAccount") {
-            fetch("http://localhost:8080/customers") 
+            fetch("http://localhost:8080/customers") // Replace with actual API endpoint
                 .then(response => response.json())
-                .then(data => setCustomers(data))
+                .then(data => {
+                    // If the response has a nested structure, make sure to access the array correctly
+                    if (Array.isArray(data)) {
+                        setCustomers(data); // Directly set the array if it's already an array
+                    } else {
+                        console.error("Unexpected response structure:", data);
+                    }
+                })
                 .catch(error => console.error("Error fetching customers:", error));
         }
     }, [activeTab]);
@@ -41,7 +48,7 @@ function Administrator () {
 
     return (
         <div className='mainpage'>
-        
+            {/* Determine active tab */}
             <div className={`salesHistory ${activeTab === "salesHistory" ? "active" : ""}`}
                 onClick={() => setActiveTab("salesHistory")}>Sales History</div>
             <div className={`customerAccount ${activeTab === "customerAccount" ? "active" : ""}`}
@@ -58,7 +65,7 @@ function Administrator () {
                     <div className="customerAccountContent">
                         <h2>Customer Accounts</h2>
                         <ul>
-                            {customers.map(customer => (
+                            {Array.isArray(customers) && customers.map(customer => (
                                 <li key={customer.id}>
                                     <span>{customer.firstName} {customer.lastName}</span>
                                     <button onClick={() => handleDeleteCustomer(customer.id)}>Delete</button>
