@@ -22,6 +22,9 @@ const CustomerInfo = () => {
     const [role] = useState(userdata?.role || "");
     const [passwordHash] = useState(userdata?.passwordHash || "");
 
+    // State to track if the profile is in editing mode
+    const [isEditing, setIsEditing] = useState(false);
+
     useEffect(() => {
         if (!isLoggedIn) {
             navigate('/'); // Redirect to home if not logged in
@@ -37,16 +40,16 @@ const CustomerInfo = () => {
         navigate('/'); // Redirect to home after logout
     };
 
-    const handleUpdate = (field, value) => {
+    const handleUpdate = () => {
         const updatedCustomer = {
-            firstName,
-            lastName,
-            email,
-            creditCard,
-            shippingAddress,
-            id,
-            role,
-            passwordHash
+            id,                    
+            firstName,             
+            lastName,              
+            email,                 
+            cardNum: creditCard,   
+            address: shippingAddress, 
+            passwordHash,         
+            role,                  
         };
         
         fetch('http://localhost:8080/update', {
@@ -54,16 +57,21 @@ const CustomerInfo = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ [field]: value }),
+            body: JSON.stringify(updatedCustomer),
         })
-            .then(response => response.json())
-            .then(data => {
-                // Optionally handle successful update 
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error updating profile:', error);
-            });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Update successful:", data);
+            setIsEditing(false);  // Disable editing mode after successful update
+        })
+        .catch(error => {
+            console.error("Error updating profile:", error);
+        });
     };
 
     return (
@@ -84,52 +92,81 @@ const CustomerInfo = () => {
             <div className='square'>
                 {activeTab === "Profile" ? (
                     <div className="profileContent">
+                        {/* Title and Edit button */}
+                        <h2>Profile Information</h2>
+                        <button onClick={() => setIsEditing(!isEditing)}>
+                            {isEditing ? 'Cancel' : 'Edit'}
+                        </button>
+
                         {/* Profile fields */}
-                        <p>Name: <b>{userdata ? `${userdata.firstName} ${userdata.lastName}` : "N/A"}</b></p>
-                        <input 
-                            type="text" 
-                            value={firstName}
-                            onChange={e => setFirstName(e.target.value)} 
-                        />
-                        <button onClick={() => handleUpdate("firstName", firstName)}>Edit</button>
+                        <div>
+                            <p>Name:</p>
+                            {isEditing ? (
+                                <>
+                                    <input 
+                                        type="text" 
+                                        value={firstName}
+                                        onChange={e => setFirstName(e.target.value)} 
+                                    />
+                                    <input 
+                                        type="text" 
+                                        value={lastName}
+                                        onChange={e => setLastName(e.target.value)} 
+                                    />
+                                </>
+                            ) : (
+                                <span>{`${firstName} ${lastName}`}</span>
+                            )}
+                        </div>
 
-                        <input 
-                            type="text" 
-                            value={lastName}
-                            onChange={e => setLastName(e.target.value)} 
-                        />
-                        <button onClick={() => handleUpdate("lastName", lastName)}>Edit</button>
+                        <div>
+                            <p>Email:</p>
+                            {isEditing ? (
+                                <input 
+                                    type="email" 
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)} 
+                                />
+                            ) : (
+                                <span>{email}</span>
+                            )}
+                        </div>
 
-                        <p>Email: <b>{userdata ? userdata.email : "N/A"}</b></p>
-                        <input 
-                            type="email" 
-                            value={email}
-                            onChange={e => setEmail(e.target.value)} 
-                        />
-                        <button onClick={() => handleUpdate("email", email)}>Edit</button>
+                        <div>
+                            <p>Credit Card:</p>
+                            {isEditing ? (
+                                <input 
+                                    type="text" 
+                                    value={creditCard}
+                                    onChange={e => setCreditCard(e.target.value)} 
+                                />
+                            ) : (
+                                <span>{creditCard}</span>
+                            )}
+                        </div>
 
-                        <p>Credit Card: <b>{userdata ? userdata.cardNum : "**** **** **** 1234"}</b></p>
-                        <input 
-                            type="text" 
-                            value={creditCard}
-                            onChange={e => setCreditCard(e.target.value)} 
-                        />
-                        <button onClick={() => handleUpdate("creditCard", creditCard)}>Edit</button>
+                        <div>
+                            <p>Shipping Address:</p>
+                            {isEditing ? (
+                                <input 
+                                    type="text" 
+                                    value={shippingAddress}
+                                    onChange={e => setShippingAddress(e.target.value)} 
+                                />
+                            ) : (
+                                <span>{shippingAddress}</span>
+                            )}
+                        </div>
 
-                        <p>Shipping Address: <b>{userdata ? userdata.address : "N/A"}</b></p>
-                        <input 
-                            type="text" 
-                            value={shippingAddress}
-                            onChange={e => setShippingAddress(e.target.value)} 
-                        />
-                        <button onClick={() => handleUpdate("shippingAddress", shippingAddress)}>Edit</button>
-
-            
+                        {/* Admin Button */}
                         {userdata && userdata.role === "ADMIN" && (
                             <button className='toAdmin' onClick={toAdmin}>Admin Page</button>
                         )}
 
                         <button className='signout' onClick={signout}>Sign Out</button>
+
+                        {/* Save Button only shown if editing */}
+                        {isEditing && <button onClick={handleUpdate}>Save</button>} {/* Only show Save button if editing */}
                     </div>
                 ) : (
                     <div className="purchaseHistoryContent">

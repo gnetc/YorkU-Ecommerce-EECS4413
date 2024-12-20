@@ -74,7 +74,9 @@ public class CustomerDAOImpl implements CustomerDAO{
         existingCustomer.setEmail(newCustomerInfo.getEmail());
         existingCustomer.setPasswordHash(newCustomerInfo.getPasswordHash());
         existingCustomer.setRole(newCustomerInfo.getRole());
-
+        existingCustomer.setAddress(newCustomerInfo.getAddress());
+        existingCustomer.setCardNum(newCustomerInfo.getCardNum());
+        
         if(entityManager.merge(existingCustomer) != null){ // 
             return true;
         }
@@ -100,5 +102,12 @@ public class CustomerDAOImpl implements CustomerDAO{
         String query = "SELECT c FROM Customer c WHERE c.id = :id";
         Customer customer = entityManager.createQuery(query, Customer.class).setParameter("id", id).getSingleResult();
         return(customer.getRole().equals("Admin"));
+    }
+    
+    @Transactional
+    @Override
+    public List<Customer> findAll(){
+        String query = "SELECT c FROM Customer c";  // Query to find all customers
+        return entityManager.createQuery(query, Customer.class).getResultList();  // Return the list of all customers
     }
 }
