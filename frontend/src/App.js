@@ -11,13 +11,13 @@ import NavBar from './components/navbar/NavBar.jsx';
 import Filter from './pages/Filter.jsx';
 import ProductDisplay from './components/productDisplay/ProductDisplay.jsx'; // Import the ProductDisplay component
 import All from "./pages/All.jsx" 
+import { LoginContext } from './context/LoginState.js';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <NavBar/>
-        
         <Routes>
           <Route path='/' element={<All/>}></Route>
           <Route path='/All' element={<Filter Filter="All"/>}></Route>

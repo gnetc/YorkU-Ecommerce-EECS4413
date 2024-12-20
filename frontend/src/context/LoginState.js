@@ -9,8 +9,9 @@ export const LoginContext = createContext();
 export const LoginProvider = ({ children }) => {
   const [isLoggedIn, setLoggedInState] = useState(false); // Login state
 
+  console.log(isLoggedIn)
   return (
-    <LoginContext.Provider value={{ isLoggedIn, setLoggedInState }}>
+    <LoginContext.Provider value={setLoggedInState}>
       {children}
     </LoginContext.Provider>
   );

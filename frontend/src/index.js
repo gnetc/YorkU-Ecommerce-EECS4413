@@ -4,11 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ShopContextProvider from './context/ShopContext';
+import { LoginProvider } from './context/LoginState';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+
   <ShopContextProvider>
+  <LoginProvider>
     <App/>
+  </LoginProvider>
   </ShopContextProvider>
 );
 

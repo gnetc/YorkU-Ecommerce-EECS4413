@@ -8,6 +8,7 @@ import { LoginContext } from "../context/LoginState";
  * @returns Input fields for login
  */
 function Login() {
+    const setLoggedInState = useContext(LoginContext);
     
     const navigate = useNavigate();
     const [errorMessage, setErrorState] = useState(null)
@@ -32,15 +33,18 @@ function Login() {
         }
         const result = await response.json()
         console.log(result);
+
         localStorage.setItem("user", JSON.stringify({
           email: result.email,
           firstName: result.firstName,
           lastName: result.lastName,
           id: result.id,
           role: result.role
-
+          
 
         }));
+        setLoggedInState(true)
+        console.log(setLoggedInState)
         navigate("/")
     
     }
