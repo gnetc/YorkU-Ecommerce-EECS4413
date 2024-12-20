@@ -12,6 +12,7 @@ import Filter from './pages/Filter.jsx';
 import ProductDisplay from './components/productDisplay/ProductDisplay.jsx'; // Import the ProductDisplay component
 import All from "./pages/All.jsx" 
 import { LoginContext } from './context/LoginState.js';
+import CustomerInfo from './pages/profile/CustomerInfo.jsx';
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
           <Route path='/Registration' element={<Registration/>}></Route>
           <Route path='/Login' element={<Login/>}></Route>
           <Route path="/checkout" element={<Checkout />} />
+          <Route path='/CustomerInfo' element={<CustomerInfo/>}></Route>
+          <Route path='/Administrator' element={<Administrator/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
