@@ -18,6 +18,13 @@ const NavBar = () => {
     const[menu, setMenu] = useState("All");
     const {getTotalItems} = useContext(ShopContext);
     const {isLoggedIn} = useContext(LoginContext);
+    const navigate = useNavigate();
+    
+    const toProfile = () => {
+        if (isLoggedIn) {
+            navigate("/CustomerInfo");
+        }
+    };
 
     return (
         <div className='navBar'> 
@@ -33,7 +40,11 @@ const NavBar = () => {
             </ul>
             <div className='navLogin'>
                 {isLoggedIn ? (
-                <img src={profile} alt="" className="profileIcon" /> 
+                <img 
+                src={profile} 
+                alt="" 
+                className="profileIcon"
+                onClick={toProfile} /> 
                 ) : (
                 <Link to="/Registration">
                     <button>Login</button>

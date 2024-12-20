@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { LoginContext } from '../../context/LoginState';
 import './CustomerInfo.css'
 
 /**
@@ -8,6 +10,18 @@ import './CustomerInfo.css'
  */
 const CustomerInfo = () => {
     const [activeTab, setActiveTab] = useState("Profile"); 
+    const navigate = useNavigate();
+    const { setLoggedInState } = useContext(LoginContext);
+
+    const toAdmin = () => {
+        navigate("/Administrator");
+    };
+
+    const signout = () => {
+        setLoggedInState(false);
+        navigate('/');
+    };
+    
     return (
         <div className='mainpage'> 
             {/* Determine active tab */}
@@ -23,6 +37,8 @@ const CustomerInfo = () => {
                             <p>Email: <b>testemail@gmail.com</b> <button>Edit</button></p>
                             <p>Credit Card: <b>**** **** **** 1234</b> <button>Edit</button></p>
                             <p>Shipping Address: <b>123 Main St</b> <button>Edit</button></p>
+                            <button className='toAdmin' onClick={toAdmin}>Admin Page</button>
+                            <button className='signout' onClick={signout}>Sign Out</button>
                         </div>
                     ) : (
                         <div className="purchaseHistoryContent">
