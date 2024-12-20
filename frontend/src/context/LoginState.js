@@ -57,16 +57,18 @@ export const LoginProvider = ({ children }) => {
     }));
     setLoggedInState(true)  //set the logged in to true 
     localStorage.setItem("loginStatus", "true") 
+    setUserData(result);
   }
 
   function LogoutUser() {
     setLoggedInState(false);
     localStorage.setItem("isLoggedIn", "false"); // Clear login status
     localStorage.removeItem("user"); // Optional: Clear user data
+    setUserData(null);
   }
 
   return (
-    <LoginContext.Provider value={{LoginUser, isLoggedIn, errorMessage}}>
+    <LoginContext.Provider value={{LoginUser,LogoutUser,userdata, isLoggedIn, errorMessage}}>
       {children}
     </LoginContext.Provider>
   );
