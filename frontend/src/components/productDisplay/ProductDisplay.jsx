@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'; // Import useSta
 import { useParams } from 'react-router-dom';
 import "./ProductDisplay.css"
 import { ShopContext } from '../../context/ShopContext';
+import ShoppingCart from '../../pages/ShoppingCart.jsx';
 
 /**
  * this page is for displaying the product the user clicked on - shows detail of the product
@@ -9,19 +10,17 @@ import { ShopContext } from '../../context/ShopContext';
  * @returns product info page
  */
 function ProductDisplay() {
-    const { productId } = useParams(); // Get productId from the URL
-    const [product, setProduct] = useState(null); // Initially null
-    const [loading, setLoading] = useState(true); // Loading state
-    const [error, setError] = useState(null); // Error state
-    const {addToCart} = useContext(ShopContext);
+    const { productId } = useParams();
+    const { addToCart } = useContext(ShopContext);
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchProduct() {
             try {
                 const response = await fetch(`http://localhost:8080/api/products/${productId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch product');
-                }
+                if (!response.ok) throw new Error("Failed to fetch product");
                 const data = await response.json();
                 setProduct(data);
             } catch (err) {
@@ -32,6 +31,17 @@ function ProductDisplay() {
         }
         fetchProduct();
     }, [productId]);
+
+    const handleAddToCart = () => {
+        if (product) {
+            addToCart(product.id);
+            alert(`${product.name} added to cart!`);
+        }
+    };
+
+    if (loading) return <p>Loading product...</p>;
+    if (error) return <p>Error: {error}</p>;
+    
 
     if (loading) {
         return <p>Loading product...</p>;
@@ -66,7 +76,7 @@ function ProductDisplay() {
                 <div className="displayDescription">
                     Description:&nbsp;<span>{product.description}</span>
                 </div>
-                <button onClick={() => {addToCart(product.id)}}>Add to Cart</button>
+                <button onClick={handleAddToCart}>Add to Cart</button>
             </div>
         </div>
     );

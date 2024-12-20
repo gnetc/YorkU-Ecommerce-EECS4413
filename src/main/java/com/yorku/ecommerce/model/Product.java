@@ -9,8 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.Entity;
@@ -20,12 +18,10 @@ import jakarta.persistence.Entity;
 public class Product {
 
     public Product() {
-
-    };
+        };
 
     public Product(Integer id, String name, String description, double price, 
-                    int stock, String imageUrl, Category category, 
-                    LocalDateTime createdAt, LocalDateTime updatedAt) {
+                    int stock, String imageUrl, Category category) {
                         this.id = id;
                         this.name = name;
                         this.description = description;
@@ -33,8 +29,7 @@ public class Product {
                         this.stock = stock;
                         this.imageUrl = imageUrl;
                         this.category = category;
-                        this.createdAt = createdAt;
-                        this.updatedAt = updatedAt;
+                        
     }
     
     @Id
@@ -123,33 +118,6 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-   public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
     }
 
 }

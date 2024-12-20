@@ -20,8 +20,6 @@ public class ProductService {
     }
 
     public Product save(Product product) {
-        product.setCreatedAt(LocalDateTime.now());
-        product.setUpdatedAt(LocalDateTime.now());
         return productDAO.save(product);
     }
 }

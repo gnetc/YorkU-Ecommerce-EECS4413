@@ -28,6 +28,7 @@ function App() {
           <Route path='/ShoppingCart' element={<ShoppingCart/>}></Route>
           <Route path='/Registration' element={<Registration/>}></Route>
           <Route path='/Login' element={<Login/>}></Route>
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </BrowserRouter>
     </div>

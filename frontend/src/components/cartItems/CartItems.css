@@ -1,83 +1,153 @@
+/* General cart container styling */
 .cartItems {
-    margin: 100px 170px;
+    margin: 50px auto;
+    max-width: 1200px;
+    font-family: Arial, sans-serif;
 }
 
-.cartItems hr {
-    height: 3px;
-    background: wheat;
-    border: 0;
-}
-
+/* Header row styling */
 .cartFormat {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
     align-items: center;
-    gap: 75px;
-    padding: 20px 0px;
-    color: grey;
-    font-size: 18px;
-    font-weight: 600; 
+    background-color: #f8f8f8;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
 }
 
-.itemFormat {
-    font-size: 18px;
-    font-weight: 600;
+/* Divider line */
+.cartItems hr {
+    height: 2px;
+    background: wheat;
+    border: none;
+    margin: 20px 0;
 }
 
+/* Item grid for product display */
 .itemGrid {
     display: grid;
-    grid-template-columns: 2.2fr 1.5fr 1.5fr 1.5fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
     align-items: center;
-    gap: 75px;
-    padding: 20px 0px;
-    color: grey;
-    font-size: 18px;
-    font-weight: 600; 
+    gap: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
+/* Product image styling */
 .productIcon {
-    height: 100px;
+    width: 120px; /* Adjust width to fit your layout */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image fits without distortion */
+    border-radius: 8px; /* Optional: Add rounded corners */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    margin-right: 20px; /* Add spacing between image and text */
 }
 
-.removeItem {
-    margin: 0px 40px;
-    cursor: pointer;
-}
 
+/* Quantity controls */
 .cartQuantity {
-    width: 64px;
-    height: 50px;
-    border: 2px solid wheat;
-    background: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
+.cartQuantity button {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.cartQuantity button:hover {
+    background-color: #eaeaea;
+    border-color: #aaa;
+}
+
+.cartQuantity span {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Remove button */
+.removeItem {
+    color: #ff5722;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.removeItem:hover {
+    color: #e64a19;
+}
+
+/* Total section */
 .cartBottom {
     display: flex;
-    margin: 100px 0px;
+    justify-content: flex-end;
+    margin-top: 30px;
 }
 
 .cartTotal {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin-right: 200px;
-    gap: 40px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: right;
+    max-width: 400px;
+    width: 100%;
 }
 
 .totalItem {
     display: flex;
     justify-content: space-between;
-    padding: 15px 0px;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #555;
 }
 
+/* Checkout button */
 .cartTotal button {
-    width: 262px;
-    height: 58px;
-    outline: none;
-    border: none;
-    background-color: orangered;
+    width: 100%;
+    padding: 15px;
+    background-color: #ff5722;
     color: white;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cartTotal button:hover {
+    background-color: #e64a19;
+}
+
+/* Empty cart message */
+.empty-cart {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+    margin-top: 50px;
 }

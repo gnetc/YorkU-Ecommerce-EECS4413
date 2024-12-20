@@ -1,61 +1,63 @@
 import React, { useContext } from 'react';
 import "./CartItems.css"
 import { ShopContext } from '../../context/ShopContext';
+import { useEffect, useState } from "react";
+
 
 function CartItems () {
-    const {getTotal, productData, cartItems, removeFromCart} = useContext(ShopContext);
-    return (
-        <div className='cartItems'>
-            <div className='cartFormat'>
-                <p>Products</p>
-                <p>Title</p>
-                <p>Price</p>
-                <p>Quantity</p>
-                <p>Total</p>
-                <p>Remove</p>
-            </div>
-            <hr/> 
-            {/* Displays items users have in cart */}
-            {productData.map((e) => {
-                if (cartItems[e.id] > 0) {
-                    return <div>
-                        <div className='itemFormat itemGrid'>
-                            <img src={e.image} alt="" className='productIcon'></img>
-                            <p>{e.name}</p>
-                            <p>${e.price}</p>
-                            <button className='cartQuantity'>{cartItems[e.id]}</button>
-                            <p>${e.price * cartItems[e.id]}</p>
-                            <button className='removeItem' onClick={() => {removeFromCart(e.id)}}>Remove Item</button>
-                        </div>
-                        <hr/>
-                    </div>
+    const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        async function fetchCartItems() {
+            const customerId = 1; // Replace with the logged-in customer's ID
+            try {
+                const response = await fetch(`http://localhost:8080/api/cart/${customerId}`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch cart items");
                 }
-                return null;
-            })}
-            <div className='cartBottom'>
-                <div className='cartTotal'>
-                    <h1>Cart Totals</h1>
-                    <div>
-                        <div className='totalItem'>
-                            <p>Subtotal</p>
-                            <p>${getTotal()}</p>
+                const data = await response.json();
+                setCartItems(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchCartItems();
+    }, []);
+
+    if (loading) {
+        return <p>Loading cart...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
+
+    if (cartItems.length === 0) {
+        return <p>Your cart is empty.</p>;
+    }
+
+    return (
+        <div className="shoppingCart">
+            <h1>Your Shopping Cart</h1>
+            <ul>
+                {cartItems.map((item) => (
+                    <li key={item.id} className="cartItem">
+                        <img src={item.productImageUrl} alt={item.productName} />
+                        <div>
+                            <h2>{item.productName}</h2>
+                            <p>Price: ${item.productPrice.toFixed(2)}</p>
+                            <p>Quantity: {item.quantity}</p>
+                            <p>Total: ${(item.productPrice * item.quantity).toFixed(2)}</p>
                         </div>
-                        <hr/>
-                        <div className='totalItem'>
-                            <p>Shipping Fee</p>
-                            <p>$100</p>
-                        </div>
-                        <hr/>
-                        <div className='totalItem'>
-                            <h3>Total</h3>
-                            <h3>${getTotal() + 100}</h3>
-                        </div>
-                    </div>
-                    <button>Check Out</button>
-                </div>
-            </div>
+                    </li>
+                ))}
+            </ul>
         </div>
-    )
+    );
 }
 
 export default CartItems

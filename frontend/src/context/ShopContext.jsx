@@ -1,4 +1,4 @@
-import React, {createContext, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import productData from "../components/assets/data"
 
 /**
@@ -19,14 +19,25 @@ const ShopContextProvider = (props) => {
      * @returns default cart
      */
     const getDefaultCart = () => {
-        let cart = {};
-        productData.forEach((product) => {
-            cart[product.id] = 0;
-        });
-        return cart;
+        const savedCart = localStorage.getItem("cart");
+        if (savedCart) {
+            return JSON.parse(savedCart); // Load cart from localStorage
+        } else {
+            let cart = {};
+            productData.forEach((product) => {
+                cart[product.id] = 0; // Initialize empty cart
+            });
+            return cart;
+        }
     };
-
+    
     const [cartItems, setCartItems] = useState(getDefaultCart());
+    
+    // Update localStorage whenever cartItems changes
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+    }, [cartItems]);
+    
 
     /**
      * This function is to add item to the cart
@@ -37,11 +48,11 @@ const ShopContextProvider = (props) => {
         console.log(cartItems);
     }
 
-    /**
+     /**
      * This function is to delete item from a cart
      * @param {*} itemId 
      */
-    const removeFromCart = (itemId) => {
+     const removeFromCart = (itemId) => {
         setCartItems((prev) => ({...prev, [itemId]:prev[itemId] - 1}));
     }
 
