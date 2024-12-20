@@ -22,6 +22,9 @@ const CustomerInfo = () => {
     const [role] = useState(userdata?.role || "");
     const [passwordHash] = useState(userdata?.passwordHash || "");
 
+    // State for edit mode
+    const [isEditing, setIsEditing] = useState(false);
+
     useEffect(() => {
         if (!isLoggedIn) {
             navigate('/'); // Redirect to home if not logged in
@@ -37,7 +40,7 @@ const CustomerInfo = () => {
         navigate('/'); // Redirect to home after logout
     };
 
-    const handleUpdate = (field, value) => {
+    const handleUpdate = () => {
         const updatedCustomer = {
             firstName,
             lastName,
@@ -48,13 +51,13 @@ const CustomerInfo = () => {
             role,
             passwordHash
         };
-        
+
         fetch('http://localhost:8080/update', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ [field]: value }),
+            body: JSON.stringify(updatedCustomer),
         })
             .then(response => response.json())
             .then(data => {
@@ -66,16 +69,23 @@ const CustomerInfo = () => {
             });
     };
 
+    const toggleEdit = () => {
+        if (isEditing) {
+            handleUpdate(); // Save changes if editing
+        }
+        setIsEditing(!isEditing); // Toggle edit mode
+    };
+
     return (
         <div className='mainpage'>
-            <div 
-                className={`profile ${activeTab === "Profile" ? "active" : ""}`} 
+            <div
+                className={`profile ${activeTab === "Profile" ? "active" : ""}`}
                 onClick={() => setActiveTab("Profile")}
             >
                 Profile
             </div>
-            <div 
-                className={`purchaseHistory ${activeTab === "purchaseHistory" ? "active" : ""}`} 
+            <div
+                className={`purchaseHistory ${activeTab === "purchaseHistory" ? "active" : ""}`}
                 onClick={() => setActiveTab("purchaseHistory")}
             >
                 Purchase History
@@ -86,50 +96,52 @@ const CustomerInfo = () => {
                     <div className="profileContent">
                         {/* Profile fields */}
                         <p>Name: <b>{userdata ? `${userdata.firstName} ${userdata.lastName}` : "N/A"}</b></p>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             value={firstName}
-                            onChange={e => setFirstName(e.target.value)} 
+                            onChange={e => setFirstName(e.target.value)}
+                            disabled={!isEditing}
                         />
-                        <button onClick={() => handleUpdate("firstName", firstName)}>Edit</button>
-
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             value={lastName}
-                            onChange={e => setLastName(e.target.value)} 
+                            onChange={e => setLastName(e.target.value)}
+                            disabled={!isEditing}
                         />
-                        <button onClick={() => handleUpdate("lastName", lastName)}>Edit</button>
 
                         <p>Email: <b>{userdata ? userdata.email : "N/A"}</b></p>
-                        <input 
-                            type="email" 
+                        <input
+                            type="email"
                             value={email}
-                            onChange={e => setEmail(e.target.value)} 
+                            onChange={e => setEmail(e.target.value)}
+                            disabled={!isEditing}
                         />
-                        <button onClick={() => handleUpdate("email", email)}>Edit</button>
 
                         <p>Credit Card: <b>{userdata ? userdata.cardNum : "**** **** **** 1234"}</b></p>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             value={creditCard}
-                            onChange={e => setCreditCard(e.target.value)} 
+                            onChange={e => setCreditCard(e.target.value)}
+                            disabled={!isEditing}
                         />
-                        <button onClick={() => handleUpdate("creditCard", creditCard)}>Edit</button>
 
                         <p>Shipping Address: <b>{userdata ? userdata.address : "N/A"}</b></p>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             value={shippingAddress}
-                            onChange={e => setShippingAddress(e.target.value)} 
+                            onChange={e => setShippingAddress(e.target.value)}
+                            disabled={!isEditing}
                         />
-                        <button onClick={() => handleUpdate("shippingAddress", shippingAddress)}>Edit</button>
 
-            
                         {userdata && userdata.role === "ADMIN" && (
                             <button className='toAdmin' onClick={toAdmin}>Admin Page</button>
                         )}
 
                         <button className='signout' onClick={signout}>Sign Out</button>
+
+                        <button className="editButton" onClick={toggleEdit}>
+                            {isEditing ? "Save" : "Edit"}
+                        </button>
                     </div>
                 ) : (
                     <div className="purchaseHistoryContent">
