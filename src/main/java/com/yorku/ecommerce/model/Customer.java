@@ -29,6 +29,12 @@ public class Customer {
     @Column(name = "email", nullable = false, unique = true, length = 150) // email should be unique
     private String email;
 
+    @Column(name = "credit_card_number", length = 150, unique = true)
+    private String cardNum;
+
+    @Column(name = "shipping_address", length = 150)
+    private String address; 
+
     @Column(name = "password_hash", nullable = false) // Store a hashed password
     private String passwordHash;
 
@@ -111,6 +117,21 @@ public class Customer {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+    public String getCardNum() {
+        return cardNum;
+    }
+
+    public void setCardNum(String cardNum) {
+        this.cardNum = cardNum;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     /* 
     public LocalDateTime getUpdatedAt() {
@@ -129,6 +150,8 @@ public class Customer {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                "cardNum='" + cardNum + '\'' +
+                ", address='" + address + '\'' +
                 ", role='" + role + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

@@ -14,7 +14,16 @@ function Checkout () {
     const [error, setError] = useState("");
 
     const validCardNumber = "1234 5678 9012 3456"; // Example valid card
-
+    console.log("Product Data in Checkout:", productData);
+    console.log("Cart Items:", cartItems);
+    console.log("Mapped Product Data:", productData.map(e => ({
+        id: e.id,
+        image_url: e.image_url,
+        name: e.name,
+        price: e.price,
+        quantity: cartItems[e.id] || 0
+    })));
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -49,21 +58,28 @@ function Checkout () {
             </form>
             {productData.map((e) => {
                 if (cartItems[e.id] > 0) {
-                    return <div className='checkoutItem'>
-                        <img src={e.image} alt="" className='productIcon'></img>
-                        <p className='item'>{e.name}</p>
-                        <p className='item'>Price: ${e.price}</p>
-                        <p className='item'>Quantity: {cartItems[e.id]}</p>
-                    </div>
-                    
+                    console.log("Image URL:", e.image_url); // Debugging
+                    return (
+                        <div key={e.id} className="checkoutItem">
+                            <img
+                                src={e.image_url || "fallback-image.png"} // Fallback if image_url is undefined
+                                alt={e.name || "Product Image"}
+                                className="productIcon"
+                            />
+                            <p className="item">Name: {e.name}</p>
+                            <p className="item">Price: ${e.price}</p>
+                            <p className="item">Quantity: {cartItems[e.id]}</p>
+                        </div>
+                    );
                 }
                 return null;
             })}
             <p className='submission'>Shipping fee: $100</p>
-            <p className='submission'>Total: ${getTotal() * 100}</p>
+            <p className='submission'>Total: ${getTotal() + 100}</p>
             <button type="submit" className='submission' onClick={handleSubmit}>Place Order</button>
         </div>
     )
+    
 }
 
 export default Checkout
