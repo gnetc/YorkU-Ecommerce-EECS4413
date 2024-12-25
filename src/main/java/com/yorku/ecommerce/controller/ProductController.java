@@ -56,4 +56,16 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/{id}")
+   public ResponseEntity<Product> getProductById(@PathVariable Integer id) {
+    Product product = productDAO.findById(id);
+
+    if (product != null) {
+        return ResponseEntity.ok(product);
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+
+   }
  }
