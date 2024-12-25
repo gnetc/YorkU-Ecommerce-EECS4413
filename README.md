@@ -140,7 +140,10 @@ If the database needs to be reinitialized or restored, the SQL scripts can be fo
 Frontend: Open http://localhost:3000 in your browser.
 Backend: API available at http://localhost:8080.
 ---
-## Admin Account Credentials
+## Admin Account Credentials/ CC Information
+To checkout, use the following card number:
+1234 5678 9012 3456
+
 To access the admin panel, use the following credentials:
 
 Email: use@gmail.com
